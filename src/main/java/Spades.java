@@ -1,16 +1,14 @@
-package cards;
-
-public class spades implements cardelement{
+public class Spades implements Cardelement {
     private static String colour;
     private int value;
-    private boolean trump;
+    private int trump;
 
     /**
      * Konstruktor von cards.spades
      */
-    public spades(int val, boolean tr){
+    public Spades(int val, int tr){
         colour = "spades";
-        value = val;
+        value = val + tr;
         trump = tr;
     }
 
@@ -23,6 +21,11 @@ public class spades implements cardelement{
     }
 
     public boolean giveTrump(){
-        return trump;
+        if(trump == 10){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

@@ -1,16 +1,14 @@
-package cards;
-
-public class clubs implements cardelement {
+public class Clubs implements Cardelement {
     private static String colour;
     private int value;
-    private boolean trump;
+    private int trump;
 
     /**
      * Konstruktor von cards.clubs
      */
-    public clubs(int val, boolean tr){
+    public Clubs(int val, int tr){
         colour = "clubs";
-        value = val;
+        value = val + tr;
         trump = tr;
     }
 
@@ -23,6 +21,11 @@ public class clubs implements cardelement {
     }
 
     public boolean giveTrump(){
-        return trump;
+        if(trump == 10){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

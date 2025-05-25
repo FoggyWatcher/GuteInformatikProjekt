@@ -1,16 +1,14 @@
-package cards;
-
-public class diamonds implements cardelement{
+public class Diamonds implements Cardelement {
     private static String colour;
     private int value;
-    private boolean trump;
+    private int trump;
 
     /**
      * Konstruktor von cards.diamonds
      */
-    public diamonds(int val, boolean tr){
+    public Diamonds(int val, int tr){
         colour = "diamonds";
-        value = val;
+        value = val + tr;
         trump = tr;
     }
 
@@ -23,6 +21,11 @@ public class diamonds implements cardelement{
     }
 
     public boolean giveTrump(){
-        return trump;
+        if(trump == 10){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

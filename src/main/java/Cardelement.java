@@ -1,6 +1,4 @@
-package cards;
-
-public interface cardelement {
+public interface Cardelement {
     public String giveColour();
     public int giveValue();
     public boolean giveTrump();
