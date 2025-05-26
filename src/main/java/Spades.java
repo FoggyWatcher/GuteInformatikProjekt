@@ -1,15 +1,17 @@
-public class Spades implements Cardelement {
+public class Spades extends Card implements Cardelement {
     private static String colour;
     private int value;
     private int trump;
+    private String location;
 
     /**
      * Konstruktor von cards.spades
      */
-    public Spades(int val, int tr){
+    public Spades(int val, int tr, String location){
         colour = "spades";
         value = val + tr;
         trump = tr;
+        this.location = location;
     }
 
     public String giveColour(){
