@@ -1,15 +1,17 @@
-public class Clubs implements Cardelement {
+public class Clubs extends Card implements Cardelement{
     private static String colour;
     private int value;
     private int trump;
+    private String location;
 
     /**
      * Konstruktor von cards.clubs
      */
-    public Clubs(int val, int tr){
+    public Clubs(int val, int tr, String location){
         colour = "clubs";
         value = val + tr;
         trump = tr;
+        this.location = location;
     }
 
     public String giveColour(){

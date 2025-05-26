@@ -1,15 +1,17 @@
-public class Hearts implements Cardelement {
+public class Hearts extends Card implements Cardelement {
     private static String colour;
     private int value;
     private int trump;
+    private String location;
 
     /**
      * Konstruktor von cards.diamonds
      */
-    public Hearts(int val, int tr){
+    public Hearts(int val, int tr, String location){
         colour = "hearts";
         value = val + tr;
         trump = tr;
+        this.location = location;
     }
 
     public String giveColour(){
