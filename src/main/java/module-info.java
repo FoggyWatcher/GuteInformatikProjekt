@@ -1,6 +1,7 @@
 module org.example.durakspiel {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
@@ -9,4 +10,5 @@ module org.example.durakspiel {
 
     opens org.example.durakspiel to javafx.fxml;
     exports org.example.durakspiel;
+    exports Anzeige;
 }
