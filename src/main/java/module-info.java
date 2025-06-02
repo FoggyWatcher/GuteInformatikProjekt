@@ -6,6 +6,7 @@ module org.example.durakspiel {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
+    requires java.smartcardio;
 
     opens org.example.durakspiel to javafx.fxml;
     exports org.example.durakspiel;
