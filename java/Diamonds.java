@@ -31,8 +31,12 @@ public class Diamonds extends Card implements Cardelement {
         }
     }
 
-    public void addValue(){
-        trump = 10;
-        value += 10;
+    public boolean equalss(Card c){
+        if(colour.equals(c.giveColour()) && value == c.giveValue()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

@@ -34,7 +34,7 @@ public class Dealer{
         }
     }
 
-    public Card selectTrump(ArrayList<Card> a){
+    public void selectTrump(ArrayList<Card> a){
         fill(deck);
         shuffle(deck);
         Card c = a.get(36);
@@ -45,8 +45,6 @@ public class Dealer{
                 c.makeTrump();
             }
         }
-
-        return c;
     }
 
     public void givePlayerCards(int q){
@@ -55,7 +53,7 @@ public class Dealer{
             c[i] = deck.get(cardsLeft() - 1);
             deck.remove(cardsLeft() - 1);
         }
-        p.addCards(q, c);
+        p.addCards(c);
     }
 
     public void giveEnemyCards(int q, int b){
@@ -64,10 +62,24 @@ public class Dealer{
             c[i] = deck.get(cardsLeft() - 1);
             deck.remove(cardsLeft() - 1);
         }
-        enemies[b].addCards(q, c);
+        enemies[b].addCards(c);
     }
+
 
     public int cardsLeft(){
         return deck.size();
+    }
+
+    public ArrayList<Card> giveDeck(){
+        selectTrump(deck);
+        return deck;
+    }
+
+    public Player givePlayer(){
+        return p;
+    }
+
+    public Enemy[] giveEnemy(){
+        return enemies;
     }
 }

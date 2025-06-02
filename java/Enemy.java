@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class Enemy extends Dealer{
+public class Enemy extends Gamers {
     int index;
     ArrayList<Card> eonHand = new ArrayList<>(6);
 
@@ -8,9 +9,15 @@ public class Enemy extends Dealer{
         this.index = index;
     }
 
-    public void addCards(int z, Card[] n){
-        for(int i = 0; i < z; i++){
-            eonHand.add(n[i]);
+    public void addCards(Card[] n){
+        eonHand.addAll(Arrays.asList(n));
+    }
+
+    public void removeCards(Card[] n){
+        for(Card c: n){
+            eonHand.removeIf(c::equalss);
         }
     }
+
+
 }
