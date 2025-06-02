@@ -1,14 +1,16 @@
-public class Diamonds implements Cardelement {
+package Cards;
+
+public class Spades extends Card implements Cardelement {
     private static String colour;
     private int value;
     private int trump;
     private String location;
 
     /**
-     * Konstruktor von cards.diamonds
+     * Konstruktor von cards.spades
      */
-    public Diamonds(int val, int tr, String location){
-        colour = "diamonds";
+    public Spades(int val, int tr, String location){
+        colour = "spades";
         value = val + tr;
         trump = tr;
         this.location = location;
@@ -29,18 +31,5 @@ public class Diamonds implements Cardelement {
         else {
             return false;
         }
-    }
-
-    public boolean equalss(Cardelement c){
-        if(colour.equals(c.giveColour()) && value == c.giveValue()){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    public void makeTrump(){
-        value += 10;
     }
 }

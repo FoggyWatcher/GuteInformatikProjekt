@@ -1,4 +1,6 @@
-public class Clubs implements Cardelement{
+package Cards;
+
+public class Clubs extends Card implements Cardelement {
     private static String colour;
     private int value;
     private int trump;
@@ -29,18 +31,5 @@ public class Clubs implements Cardelement{
         else {
             return false;
         }
-    }
-
-    public boolean equalss(Cardelement c){
-        if(colour.equals(c.giveColour()) && value == c.giveValue()){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-    public void makeTrump(){
-        value += 10;
     }
 }
