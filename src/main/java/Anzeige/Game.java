@@ -2,9 +2,10 @@ package Anzeige;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;;
+import javafx.stage.Stage;
 
 public class Game extends Application{
     private Stage primaryStage;
@@ -12,16 +13,29 @@ public class Game extends Application{
     @Override
     public void start(Stage primStage) {
         primaryStage = primStage;
-        StackPane root = new StackPane();
-        Scene scene = new Scene(root, 650, 650);
-        Image img = new Image(getClass().getResourceAsStream("/BilderProjekt/PokerTable.jpg"));
-        BackgroundImage backImg = new BackgroundImage(img, BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        Background backGround = new Background(backImg);
-        root.setBackground(backGround);
-        primaryStage.setScene(scene);
-        primaryStage.setFullScreen(true);
+
+        //ich erstelle die borderpane + hbox
+        BorderPane grundspiel = new BorderPane();
+        HBox kartenleiste = new HBox();
+        HBox bums = new HBox();
+
+        BackgroundImage backImg= new BackgroundImage(new Image(getClass().getResourceAsStream("/BilderProjekt/PokerTable.jpg")),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        //einfuegen in borderpane
+        grundspiel.setBackground(new Background(backImg));
+        grundspiel.setTop(new Region());
+        grundspiel.setCenter(bums);
+        grundspiel.setLeft(new Region());
+        grundspiel.setRight(new Region());
+        grundspiel.setBottom(kartenleiste);
+
+        //scene + weitere Sachen
+        Scene scene = new Scene(grundspiel);
         primaryStage.setTitle("Durak-Spiel");
+        primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
