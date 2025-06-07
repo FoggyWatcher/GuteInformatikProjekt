@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 
 public class Startscreen extends Application{
 
+    private Cardchoice cardwahl;
+
     private Stage primaryStage;
 
     @Override
@@ -39,6 +41,16 @@ public class Startscreen extends Application{
         exit.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-background-color: #1d7435; -fx-border-width: 6px; -fx-border-color: #c0e10e");
 
         //Buttonfunktionen
+        play.setOnAction(e -> {
+            cardwahl = new Cardchoice();
+            try{
+                cardwahl.start(new Stage());
+            }catch(Exception exception){
+                exception.printStackTrace();
+            }
+            primaryStage.close();
+        });
+
         exit.setOnAction(e -> {
             Platform.exit();
         });
