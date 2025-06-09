@@ -9,16 +9,18 @@ import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class UnderConstruction extends Application{
+public class EndLost extends Application{
 
     private Stage primaryStage;
-    private Cardchoice cardwahl;
+    private Startscreen startScrn;
 
-    public void start(Stage primStage) {
+    @Override
+    public void start(Stage primStage){
+
         primaryStage = primStage;
 
-        //Button
-        Button back = new Button("BACK");
+        //button
+        Button back = new Button("PLAY AGAIN");
         back.setPrefSize(400, 100);
         back.setAlignment(Pos.CENTER);
 
@@ -26,13 +28,13 @@ public class UnderConstruction extends Application{
         back.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-background-color: #1d7435; -fx-border-width: 6px; -fx-border-color: #c0e10e");
 
         //erstellen + design des labels
-        Label nachricht = new Label("Currently under construction! Wait for next update!");
-        nachricht.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: black;");
+        Label nachricht = new Label("Durak!");
+        nachricht.setStyle("-fx-font-size: 64px; -fx-font-weight: bold; -fx-text-fill: black;");
 
         //ich erstelle pane + hbox
         BorderPane grund = new BorderPane();
-        HBox returnButton = new HBox(back);
-        returnButton.setPadding(new Insets(0, 0, 40, 0));
+        HBox againButton = new HBox(back);
+        againButton.setPadding(new Insets(0, 0, 40, 0));
         HBox text = new HBox(nachricht);
 
         //Hintergrund
@@ -42,13 +44,13 @@ public class UnderConstruction extends Application{
 
         //nachrichtbearbeitung
         text.setAlignment(Pos.CENTER);
-        returnButton.setAlignment(Pos.CENTER);
+        againButton.setAlignment(Pos.CENTER);
 
         //Buttonfunktion
         back.setOnAction(e -> {
-            cardwahl = new Cardchoice();
+            startScrn = new Startscreen();
             try {
-                cardwahl.start(new Stage());
+                startScrn.start(new Stage());
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -61,7 +63,7 @@ public class UnderConstruction extends Application{
         grund.setCenter(text);
         grund.setLeft(new Region());
         grund.setRight(new Region());
-        grund.setBottom(returnButton);
+        grund.setBottom(againButton);
 
         //scene + weitere Sachen
         Scene scene = new Scene(grund);
