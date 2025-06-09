@@ -34,7 +34,7 @@ public class Cardchoice extends Application{
         bildView1.setFitWidth(200);
         bildView1.setFitHeight(280);
         bildView1.setPreserveRatio(true);
-
+        //Wenn du das liest, weißt du, wo ich viel Zeit verbracht habe, Bilder in Buttons zu tun
         Image bild2 = new Image(getClass().getResourceAsStream("/BilderProjekt/ClubsAce.png"));
         ImageView bildView2 = new ImageView(bild2);
         bildView2.setFitWidth(200);
