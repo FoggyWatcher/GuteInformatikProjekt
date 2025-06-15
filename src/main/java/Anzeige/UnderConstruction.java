@@ -1,13 +1,13 @@
 package Anzeige;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.stage.Stage.*;
 
 public class UnderConstruction extends Application{
 
@@ -17,22 +17,13 @@ public class UnderConstruction extends Application{
     public void start(Stage primStage) {
         primaryStage = primStage;
 
-        //Button
-        Button back = new Button("BACK");
-        back.setPrefSize(400, 100);
-        back.setAlignment(Pos.CENTER);
-
-        //Buttondesign
-        back.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-background-color: #1d7435; -fx-border-width: 6px; -fx-border-color: #c0e10e");
-
         //erstellen + design des labels
         Label nachricht = new Label("Currently under construction! Wait for next update!");
         nachricht.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: black;");
 
         //ich erstelle pane + hbox
         BorderPane grund = new BorderPane();
-        HBox returnButton = new HBox(back);
-        returnButton.setPadding(new Insets(0, 0, 40, 0));
+        HBox returnButton = new HBox();
         HBox text = new HBox(nachricht);
 
         //Hintergrund
@@ -43,6 +34,13 @@ public class UnderConstruction extends Application{
         //nachrichtbearbeitung
         text.setAlignment(Pos.CENTER);
         returnButton.setAlignment(Pos.CENTER);
+
+        //Button
+        Button back = new Button("BACK");
+        back.setPrefSize(400, 100);
+
+        //Buttondesign
+        back.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-background-color: #1d7435; -fx-border-width: 6px; -fx-border-color: #c0e10e");
 
         //Buttonfunktion
         back.setOnAction(e -> {
@@ -61,7 +59,7 @@ public class UnderConstruction extends Application{
         grund.setCenter(text);
         grund.setLeft(new Region());
         grund.setRight(new Region());
-        grund.setBottom(returnButton);
+        grund.setBottom(back);
 
         //scene + weitere Sachen
         Scene scene = new Scene(grund);

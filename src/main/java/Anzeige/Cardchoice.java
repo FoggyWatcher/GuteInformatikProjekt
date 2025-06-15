@@ -2,6 +2,7 @@ package Anzeige;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
@@ -29,13 +30,13 @@ public class Cardchoice extends Application{
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        Image bild1 = new Image(getClass().getResourceAsStream("/BilderProjekt/DiamondsKing.png"), 200.0, 280.0, true, true);
+        Image bild1 = new Image(getClass().getResourceAsStream("/BilderProjekt/DiamondsKing.png"), 2000, 2800, true, true);
         ImageView bildView1 = new ImageView(bild1);
         bildView1.setFitWidth(200);
         bildView1.setFitHeight(280);
         bildView1.setPreserveRatio(true);
-        //Wenn du das liest, weißt du, wo ich viel Zeit verbracht habe, Bilder in Buttons zu tun
-        Image bild2 = new Image(getClass().getResourceAsStream("/BilderProjekt/ClubsAce.png"));
+
+        Image bild2 = new Image(getClass().getResourceAsStream("/BilderProjekt/clubsacebetter.png"), 2500, 2500, true, true);
         ImageView bildView2 = new ImageView(bild2);
         bildView2.setFitWidth(200);
         bildView2.setFitHeight(280);

@@ -5,6 +5,8 @@ public class Clubs implements Cardelement {
     private int value;
     private int trump;
     private String location;
+    private boolean beaten;
+    public Cardelement with;
 
     /**
      * Konstruktor von cards.clubs
@@ -14,6 +16,7 @@ public class Clubs implements Cardelement {
         value = val + tr;
         trump = tr;
         this.location = location;
+        beaten = false;
     }
 
     public String giveColour(){
@@ -31,7 +34,24 @@ public class Clubs implements Cardelement {
     public void makeTrump(){
         trump = 10;
     }
+
     public boolean equalss(Cardelement y){
         return y.giveValue() == value && colour.equals(y.giveColour());
+    }
+
+    public boolean beat() {
+        return beaten;
+    }
+
+    public void mBeat(boolean b) {
+        beaten = b;
+    }
+
+    public Cardelement giveWith(){
+        return with;
+    }
+
+    public void setWith(){
+
     }
 }

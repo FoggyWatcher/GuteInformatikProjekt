@@ -4,25 +4,58 @@ import Cards.Cardelement;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
+//add instant add cards
 public class Player extends Gamers {
     ArrayList<Cardelement> onHand = new ArrayList<>(6);
 
+    /**
+     * Adds given cards to the players on hand cards
+     * @param n Cardelement[], cards to be added
+     */
     public void addCards(Cardelement[] n){
         onHand.addAll(Arrays.asList(n));
     }
 
-    public void removeCards(Cardelement[] n){
-        for(Cardelement c: n){
+    /**
+     * Removes all given cards from the players on hand list
+     * @param c Cardelement, cards that are to be deleted
+     */
+    public void removeCards(Cardelement c){
             onHand.removeIf(c::equalss);
-        }
     }
 
+    /**
+     * Returns all cards on hand
+     * @return ArrayList<Cardelement>, cards that are currently on hand
+     */
+    public  ArrayList<Cardelement> giveOnHand(){
+        return onHand;
+    }
+
+    /**
+     * Gives the amount of cards on hand
+     * @return int, number of cards on hand
+     */
     public int giveAmOnHand(){
         return onHand.size();
     }
 
-    public Cardelement[] getCard(){
+    /**
+     * gets card from button, not used anywhere, useless as of now
+     * @return null cs shi useless
+     */
+    public Cardelement getCard(){
         return null; //Add connection to buttons
+    }
+
+    /**
+     * Returns a card, that it got from getCard() and removes it from the players hand
+     * Not used atm, shi's confoosing n lk useless af, ts pmo
+     * @return Cardelement c, card that it got from getCard()
+     */
+    public Cardelement giveCard(){
+        Cardelement c = getCard();
+        removeCards(c);
+        return c;
     }
 }
