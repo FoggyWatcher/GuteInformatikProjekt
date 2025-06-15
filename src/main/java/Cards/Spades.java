@@ -5,6 +5,7 @@ public class Spades implements Cardelement {
     private int value;
     private int trump;
     private String location;
+    private boolean beaten;
 
     /**
      * Konstruktor von cards.spades
@@ -14,6 +15,7 @@ public class Spades implements Cardelement {
         value = val + tr;
         trump = tr;
         this.location = location;
+        beaten = false;
     }
 
     public String giveColour(){
@@ -33,5 +35,11 @@ public class Spades implements Cardelement {
     }
     public boolean equalss(Cardelement y){
         return y.giveValue() == value && colour.equals(y.giveColour());
+    }
+    public boolean beat() {
+        return beaten;
+    }
+    public void mBeat(boolean b) {
+        beaten = b;
     }
 }
