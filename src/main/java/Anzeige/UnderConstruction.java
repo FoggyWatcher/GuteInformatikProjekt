@@ -23,17 +23,12 @@ public class UnderConstruction extends Application{
 
         //ich erstelle pane + hbox
         BorderPane grund = new BorderPane();
-        HBox returnButton = new HBox();
         HBox text = new HBox(nachricht);
 
         //Hintergrund
         BackgroundImage backImg = new BackgroundImage(new Image(getClass().getResourceAsStream("/BilderProjekt/PokerTable.jpg")),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-
-        //nachrichtbearbeitung
-        text.setAlignment(Pos.CENTER);
-        returnButton.setAlignment(Pos.CENTER);
 
         //Button
         Button back = new Button("BACK");
@@ -53,13 +48,21 @@ public class UnderConstruction extends Application{
             primaryStage.close();
         });
 
+        //nachrichtbearbeitung
+        text.setAlignment(Pos.CENTER);
+
+        //borderpanedesign
+        HBox returnButton = new HBox(back);
+        returnButton.setAlignment(Pos.CENTER);
+        returnButton.setPrefHeight(120);
+
         //einfuegen in borderpane
         grund.setBackground(new Background(backImg));
         grund.setTop(new Region());
         grund.setCenter(text);
         grund.setLeft(new Region());
         grund.setRight(new Region());
-        grund.setBottom(back);
+        grund.setBottom(returnButton);
 
         //scene + weitere Sachen
         Scene scene = new Scene(grund);
