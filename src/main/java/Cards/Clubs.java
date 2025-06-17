@@ -47,6 +47,10 @@ public class Clubs implements Cardelement {
         beaten = b;
     }
 
+    public String getImageName(){
+        return location;
+    }
+
     public Cardelement giveWith(){
         return with;
     }

@@ -30,6 +30,10 @@ public class Spades implements Cardelement {
         return trump == 10;
     }
 
+    public String getImageName(){
+        return location;
+    }
+
     public void makeTrump(){
         trump = 10;
     }

@@ -54,7 +54,7 @@ public class UnderConstruction extends Application{
         //borderpanedesign
         HBox returnButton = new HBox(back);
         returnButton.setAlignment(Pos.CENTER);
-        returnButton.setPrefHeight(120);
+        returnButton.setPrefHeight(240);
 
         //einfuegen in borderpane
         grund.setBackground(new Background(backImg));

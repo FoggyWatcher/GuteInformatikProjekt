@@ -242,7 +242,7 @@ public class Table{
     public void selectTrump(){
         fill();
         shuffle(deck);
-        Cardelement c = deck.get(36);
+        Cardelement c = deck.get(35);
 
         String s = c.giveColour();
         for(Cardelement i : deck){
