@@ -10,6 +10,7 @@ public interface Cardelement {
     public boolean equalss(Cardelement y);
     public boolean beat();
     public void mBeat(boolean b);
+    public String getImageName();
     //public Cardelement giveWith();
     //public void setWith(Cardelement c);
 }

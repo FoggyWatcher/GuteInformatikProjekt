@@ -17,6 +17,7 @@ public class Game extends Application{
     private HBox bums;
     private HBox kartenleiste;
     private KonYaCon spiel;
+    private VBox rechteLeiste;
 
     @Override
     public void start(Stage primStage) {
@@ -26,6 +27,7 @@ public class Game extends Application{
         BorderPane grundspiel = new BorderPane();
         kartenleiste = new HBox(); //anzeigen der karten in der hand
         bums = new HBox(); //anzeigen der karten auf dem tisch
+        rechteLeiste = new VBox(); //Leiste rechts mit Trumpfkarte und Kartenstatus der gegner
 
         BackgroundImage backImg= new BackgroundImage(new Image(getClass().getResourceAsStream("/BilderProjekt/PokerTable.jpg")),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -45,7 +47,7 @@ public class Game extends Application{
         grundspiel.setTop(new Region());
         grundspiel.setCenter(bums);
         grundspiel.setLeft(new Region());
-        grundspiel.setRight(new Region());
+        grundspiel.setRight(rechteLeiste);
         grundspiel.setBottom(kartenleiste);
 
         //scene + weitere Sachen
@@ -59,7 +61,7 @@ public class Game extends Application{
         /**
          * Hier fängt das wirklich Böse an
          * Wer das liest, kann lesen
-         * Viel Spaß beim duchblicken in diese
+         * Viel Spaß beim duchblicken in diese Hose
          */
 
         //Wichtige Objekte
@@ -67,14 +69,38 @@ public class Game extends Application{
         ArrayList<Cardelement> playerCardsOnHand;
 
         //zeigen des Trumfs and die Spieler
-        new Cardelement lastCard = spiel.determineTrump();
+        Cardelement lastCard;
+        lastCard = spiel.determineTrump();
+        Image trumpfKarte = new Image(getClass().getResourceAsStream("/BilderProjekt/" + lastCard.getImageName()));
+        ImageView trumpfView = new ImageView(trumpfKarte);
+        Button trumpfButton = new Button();
+        trumpfButton.setGraphic(trumpfView);
+        trumpfButton.setOnAction(null);
+        rechteLeiste.getChildren().addAll(trumpfButton);
 
 
         //Karten dem Spieler geben
         playerCardsOnHand = spiel.givePlayersCard();
-        for(int i = 0; i < playerCardsOnHand; i++){
-            //hier kommt etwas hinein
+        ArrayList<Button> buttons = new ArrayList<>();
+
+        System.out.println(playerCardsOnHand.size());
+        for(int i = 0; i < playerCardsOnHand.size(); i++){
+            Button butn = new Button();
+            String bildname = "/BilderProjekt/" + playerCardsOnHand.get(i).getImageName();
+            Image bild = new Image(getClass().getResourceAsStream(bildname));
+            ImageView bildView = new ImageView(bild);
+            bildView.setFitHeight(98);
+            bildView.setFitWidth(70);
+            bildView.setPreserveRatio(true);
+            butn.setGraphic(bildView);
+
+            //einfügen in ArrayList
+            buttons.add(butn);
+            kartenleiste.getChildren().add(butn);
         }
+
+        //Bestimmen wer anfängt
+        
     }
 
     public static void main(String[] args) {
