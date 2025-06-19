@@ -218,19 +218,19 @@ public class Table{
      */
     public void fill(){
         for(int i = 0; i < 9; i++){
-            Cardelement d = new Clubs(i, 0, "BilderProjekt\\" + "Clubs" + types[0] + ".png");
+            Cardelement d = new Clubs(i, 0, "/BilderProjekt/" + "Clubs" + types[i] + ".png");
             deck.add(i, d);
         }
         for(int i = 9; i < 18; i++){
-            Cardelement d = new Diamonds(i, 0, "BilderProjekt\\" + "Clubs" + types[1] + ".png");
+            Cardelement d = new Diamonds(i, 0, "/BilderProjekt/"+ "Diamonds" + types[i] + ".png");
             deck.add(i, d);
         }
         for(int i = 18; i < 27; i++){
-            Cardelement d = new Spades(i, 0, "BilderProjekt\\" + "Clubs" + types[2] + ".png");
+            Cardelement d = new Spades(i, 0, "/BilderProjekt/" + "Spades" + types[i] + ".png");
             deck.add(i, d);
         }
         for(int i = 27; i < 36; i++){
-            Cardelement d = new Hearts(i, 0, "BilderProjekt\\" + "Clubs" + types[3] + ".png");
+            Cardelement d = new Hearts(i, 0, "/BilderProjekt/" + "Hearts" + types[i] + ".png");
             deck.add(i, d);
         }
     }
