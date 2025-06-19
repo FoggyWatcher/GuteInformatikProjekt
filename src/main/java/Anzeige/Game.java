@@ -18,6 +18,8 @@ public class Game extends Application{
     private HBox kartenleiste;
     private KonYaCon spiel;
     private VBox rechteLeiste;
+    private int cardNumberEnemy3;
+
 
     @Override
     public void start(Stage primStage) {
@@ -68,25 +70,33 @@ public class Game extends Application{
         spiel = new KonYaCon();
         ArrayList<Cardelement> playerCardsOnHand;
 
+
         //zeigen des Trumfs and die Spieler
-        Cardelement lastCard;
-        lastCard = spiel.determineTrump();
-        Image trumpfKarte = new Image(getClass().getResourceAsStream("/BilderProjekt/" + lastCard.getImageName()));
+        Cardelement lastCard = spiel.determineTrump();
+        //Image trumpfKarte = new Image(getClass().getResourceAsStream("/BilderProjekt/" + lastCard.getImageName()));
+        Image trumpfKarte = new Image(getClass().getResourceAsStream("/BilderProjekt/clubsacebetter.png"));
         ImageView trumpfView = new ImageView(trumpfKarte);
         Button trumpfButton = new Button();
         trumpfButton.setGraphic(trumpfView);
         trumpfButton.setOnAction(null);
+        trumpfButton.setPrefWidth(80);
+        trumpfView.setFitWidth(72);
+        trumpfView.setPreserveRatio(true);
+        //Button gegner3kartenZahl = new Button(cardNumberEnemy3);
+        rechteLeiste.setPrefWidth(120);
+        rechteLeiste.setAlignment(Pos.CENTER);
         rechteLeiste.getChildren().addAll(trumpfButton);
 
 
         //Karten dem Spieler geben
         playerCardsOnHand = spiel.givePlayersCard();
         ArrayList<Button> buttons = new ArrayList<>();
+        //cardNumberEnemy3 = spiel.
 
-        System.out.println(playerCardsOnHand.size());
         for(int i = 0; i < playerCardsOnHand.size(); i++){
             Button butn = new Button();
-            String bildname = "/BilderProjekt/" + playerCardsOnHand.get(i).getImageName();
+            //String bildname = "/BilderProjekt/" + playerCardsOnHand.get(i).getImageName();
+            String bildname = "/BilderProjekt/clubsacebetter.png";
             Image bild = new Image(getClass().getResourceAsStream(bildname));
             ImageView bildView = new ImageView(bild);
             bildView.setFitHeight(98);
@@ -100,7 +110,7 @@ public class Game extends Application{
         }
 
         //Bestimmen wer anfängt
-        
+        System.out.println(kartenleiste.getChildren().size());
     }
 
     public static void main(String[] args) {

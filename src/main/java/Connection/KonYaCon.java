@@ -35,7 +35,9 @@ public class KonYaCon {
     }
 
     public ArrayList<Cardelement> givePlayersCard(){
-        return table.givePlayer().giveOnHand();
+        Gamers dummy = table.givePlayer();
+        return dummy.giveOnHand();
+        //return table.givePlayer().giveOnHand(); <-- eto konstantinovskoe
     }
 
     public Cardelement getEnemyMove(int i){
