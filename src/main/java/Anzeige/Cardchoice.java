@@ -36,7 +36,8 @@ public class Cardchoice extends Application{
         bildView1.setFitHeight(280);
         bildView1.setPreserveRatio(true);
 
-        Image bild2 = new Image(getClass().getResourceAsStream("/BilderProjekt/clubsacebetter.png"), 2500, 2500, true, true);
+        //Image bild2 = new Image(getClass().getResourceAsStream("/BilderProjekt/clubsacebetter.png"), 2500, 2500, true, true);
+        Image bild2 = new Image(Cardchoice.class.getResourceAsStream("/BilderProjekt/clubsacebetter.png"));
         ImageView bildView2 = new ImageView(bild2);
         bildView2.setFitWidth(200);
         bildView2.setFitHeight(280);
