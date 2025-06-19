@@ -12,4 +12,5 @@ public abstract class Gamers {
     public abstract Cardelement getCard();
     public abstract Cardelement giveCard();
     public abstract ArrayList<Cardelement> giveOnHand();
+    public abstract int giveSmallestTrump();
 }

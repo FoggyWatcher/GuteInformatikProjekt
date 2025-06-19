@@ -201,7 +201,7 @@ public class Table{
             c[i] = deck.get(cardsLeft() - 1);
             deck.remove(cardsLeft() - 1);
         }
-        p.addCards(c);
+        g.addCards(c);
     }
 
     /**
@@ -221,17 +221,17 @@ public class Table{
             Cardelement d = new Clubs(i, 0, "/BilderProjekt/" + "Clubs" + types[i] + ".png");
             deck.add(i, d);
         }
-        for(int i = 9; i < 18; i++){
-            Cardelement d = new Diamonds(i, 0, "/BilderProjekt/" + "Diamonds" + types[i] + ".png");
-            deck.add(i, d);
+        for(int i = 0; i < 9; i++){
+            Cardelement d = new Diamonds(i, 0, "/BilderProjekt/"+ "Diamonds" + types[i] + ".png");
+            deck.add(i+9, d);
         }
-        for(int i = 18; i < 27; i++){
+        for(int i = 0; i < 9; i++){
             Cardelement d = new Spades(i, 0, "/BilderProjekt/" + "Spades" + types[i] + ".png");
-            deck.add(i, d);
+            deck.add(i+18, d);
         }
-        for(int i = 27; i < 36; i++){
+        for(int i = 0; i < 9; i++){
             Cardelement d = new Hearts(i, 0, "/BilderProjekt/" + "Hearts" + types[i] + ".png");
-            deck.add(i, d);
+            deck.add(i+27, d);
         }
     }
 
@@ -247,7 +247,7 @@ public class Table{
         String s = c.giveColour();
         for(Cardelement i : deck){
             if(i.giveColour().equals(s)){
-                c.makeTrump();
+                i.makeTrump();
             }
         }
     }

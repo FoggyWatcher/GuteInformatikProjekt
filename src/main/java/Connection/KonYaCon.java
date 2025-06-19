@@ -6,6 +6,7 @@ import BrrrBrrrrIdiotin.Player;
 import BrrrBrrrrIdiotin.Table;
 import Cards.Cardelement;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class KonYaCon {
@@ -20,6 +21,7 @@ public class KonYaCon {
         p = table.givePlayer();
         enemies = table.giveEnemies();
         deck = table.giveDeck();
+        table.getFromDeck();
     }
 
     public void setPlayed(Cardelement cardelement){
@@ -35,9 +37,41 @@ public class KonYaCon {
     }
 
     public ArrayList<Cardelement> givePlayersCard(){
-        Gamers dummy = table.givePlayer();
-        return dummy.giveOnHand();
-        //return table.givePlayer().giveOnHand(); <-- eto konstantinovskoe
+        return table.givePlayer().giveOnHand();
+    }
+
+    /**
+     * Determines who is the first to attack
+     * Done through looking for the smallest trump
+     * in gamers' cards
+     * @return
+     */
+    public Gamers giveBeginner(){
+        int[] smallestTrumps = new int[4];
+        smallestTrumps[0] = p.giveSmallestTrump();
+        for(int i = 0; i < enemies.length; i++){
+            smallestTrumps[i + 1] = enemies[i].giveSmallestTrump();
+        }
+        int smallest = 100;
+        for(int i = 0; i < 4; i++){
+            if(smallestTrumps[i] < smallest){
+                smallest = smallestTrumps[i];
+            }
+        }
+        for (int i = 0; i < smallestTrumps.length; i++) {
+            if (smallestTrumps[i] == smallest) {
+                if(i == 0){
+                    return p;
+                }else if(i == 1) {
+                    return enemies[0];
+                }else if(i == 2){
+                    return enemies[1];
+                }else{
+                    return enemies[2];
+                }
+            }
+        }
+        return null; //hoffentlich ist die Wahrscheinlichkeit dafür kleiner als die zahl auf meinem Bankkonto
     }
 
     public Cardelement getEnemyMove(int i){

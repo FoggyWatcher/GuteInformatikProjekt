@@ -37,6 +37,15 @@ public class Spades implements Cardelement {
     public void makeTrump(){
         trump = 10;
     }
+
+    public boolean isTrump(){
+        if(trump == 10){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public boolean equalss(Cardelement y){
         return y.giveValue() == value && colour.equals(y.giveColour());
     }

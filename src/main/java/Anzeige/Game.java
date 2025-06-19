@@ -16,7 +16,7 @@ public class Game extends Application{
     private Stage primaryStage;
     private HBox bums;
     private HBox kartenleiste;
-    private KonYaCon spiel;
+    public KonYaCon spiel;
     private VBox rechteLeiste;
     private int cardNumberEnemy3;
 
@@ -93,8 +93,11 @@ public class Game extends Application{
         ArrayList<Button> buttons = new ArrayList<>();
         //cardNumberEnemy3 = spiel.
 
+
         for(int i = 0; i < playerCardsOnHand.size(); i++){
             Button butn = new Button();
+            butn.setOnAction(null);
+            butn.setId("butn" +(i + 1));
             //String bildname = "/BilderProjekt/" + playerCardsOnHand.get(i).getImageName();
             String bildname = "/BilderProjekt/clubsacebetter.png";
             Image bild = new Image(getClass().getResourceAsStream(bildname));
@@ -110,7 +113,10 @@ public class Game extends Application{
         }
 
         //Bestimmen wer anfängt
-        System.out.println(kartenleiste.getChildren().size());
+        spiel.giveBeginner();
+        if(spiel.giveBeginner() == null){
+            //bla bla bla
+        }
     }
 
     public static void main(String[] args) {

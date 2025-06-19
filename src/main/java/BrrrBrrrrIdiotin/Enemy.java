@@ -48,6 +48,25 @@ public class Enemy extends Gamers {
         return eonHand;
     }
 
+    public int giveSmallestTrump(){
+        ArrayList <Integer> trumpValues = new ArrayList<>();
+        for(int i = 0; i < eonHand.size(); i++){
+            if(eonHand.get(i).isTrump()){
+                trumpValues.add(eonHand.get(i).giveValue());
+            }
+        }
+        if(trumpValues.isEmpty()){
+            return 1000;
+        }
+        int min = trumpValues.get(0);
+        for (int i = 1; i < trumpValues.size(); i++) {
+            if (trumpValues.get(i) < min) {
+                min = trumpValues.get(i);
+            }
+        }
+        return min;
+    }
+
     /**
      * Gives the amount of cards on hand
      * @return int, number of cards on hand

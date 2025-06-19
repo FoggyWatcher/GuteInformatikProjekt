@@ -13,4 +13,5 @@ public interface Cardelement {
     public String getImageName();
     //public Cardelement giveWith();
     //public void setWith(Cardelement c);
+    public boolean isTrump();
 }
