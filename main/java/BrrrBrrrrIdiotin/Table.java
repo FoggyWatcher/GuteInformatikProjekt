@@ -222,7 +222,7 @@ public class Table{
             deck.add(i, d);
         }
         for(int i = 9; i < 18; i++){
-            Cardelement d = new Diamonds(i, 0, "/BilderProjekt/" + "Diamonds" + types[i] + ".png");
+            Cardelement d = new Diamonds(i, 0, "/BilderProjekt/"+ "Diamonds" + types[i] + ".png");
             deck.add(i, d);
         }
         for(int i = 18; i < 27; i++){
