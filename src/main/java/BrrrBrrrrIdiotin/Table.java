@@ -25,7 +25,7 @@ public class Table{
         deck = new ArrayList<Cardelement>(36);
         enemies = new Enemy[]{new Enemy(0), new Enemy(1), new Enemy(2)};
         selectTrump();
-        last = deck.get(35);
+        last = deck.get(deck.size()-1);
         trump = last.giveColour();
     }
 
@@ -198,8 +198,13 @@ public class Table{
     public void giveCards(Gamers g, int q){
         Cardelement[] c = new Cardelement[q];
         for(int i = 0; i < q; i++){
-            c[i] = deck.get(cardsLeft() - 1);
-            deck.remove(cardsLeft() - 1);
+            if(deck.size() == 1){
+                c[i] = deck.get(0);
+                deck.remove(0);
+            }else{
+                c[i] = deck.get(0);
+                deck.remove(0);
+            }
         }
         g.addCards(c);
     }
