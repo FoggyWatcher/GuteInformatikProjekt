@@ -36,8 +36,12 @@ public class KonYaCon {
         plaid = gamers;
     }
 
+    /**
+     * Return the cards Player p has on his hand
+     * @return
+     */
     public ArrayList<Cardelement> givePlayersCard(){
-        return table.givePlayer().giveOnHand();
+        return p.giveOnHand();
     }
 
     /**
@@ -74,6 +78,10 @@ public class KonYaCon {
         return null; //hoffentlich ist die Wahrscheinlichkeit dafür kleiner als die zahl auf meinem Bankkonto
     }
 
+     public Gamers givePlayer(){
+        return p;
+     }
+
     public Cardelement getEnemyMove(int i){
         setPlaid(enemies[i]);
         return enemies[i].getCard();
@@ -84,11 +92,24 @@ public class KonYaCon {
      * @return
      */
     public Cardelement determineTrump(){
+        table.selectTrump();
         return table.returnLastTrump();
     }
 
     public int cardsLeft(){
         return table.cardsLeft();
+    }
+
+    public void setDefender(Gamers defen){
+        table.setDefender(defen);
+    }
+
+    public Gamers giveEnemy(int i){
+        return enemies[i];
+    }
+
+    public int giveCardsNumber(Gamers gamer){
+        return gamer.giveAmOnHand();
     }
 
     public void playCard(){
