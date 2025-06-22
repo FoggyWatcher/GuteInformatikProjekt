@@ -20,8 +20,10 @@ public class Game extends Application{
     private HBox kartenleiste;
     private KonYaCon spiel;
     private VBox rechteLeiste;
+    private VBox linkeLeiste;
+    private HBox obereLeiste;
     private int cardNumberEnemy3;
-    private int cardNumverEnemy2;
+    private int cardNumberEnemy2;
     private int cardNumberEnemy1;
     private Gamers attacker;
 
@@ -35,6 +37,8 @@ public class Game extends Application{
         kartenleiste = new HBox(); //anzeigen der karten in der hand
         bums = new HBox(); //anzeigen der karten auf dem tisch
         rechteLeiste = new VBox(); //Leiste rechts mit Trumpfkarte und Kartenstatus der gegner
+        linkeLeiste = new VBox();
+        obereLeiste = new HBox();
 
         BackgroundImage backImg= new BackgroundImage(new Image(getClass().getResourceAsStream("/BilderProjekt/PokerTable.jpg")),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -51,9 +55,9 @@ public class Game extends Application{
 
         //einfuegen in borderpane
         grundspiel.setBackground(new Background(backImg));
-        grundspiel.setTop(new Region());
+        grundspiel.setTop(obereLeiste);
         grundspiel.setCenter(bums);
-        grundspiel.setLeft(new Region());
+        grundspiel.setLeft(linkeLeiste);
         grundspiel.setRight(rechteLeiste);
         grundspiel.setBottom(kartenleiste);
 
@@ -74,6 +78,8 @@ public class Game extends Application{
         //Wichtige Objekte
         spiel = new KonYaCon();
         ArrayList<Cardelement> playerCardsOnHand;
+        Label message = new Label("Das Spiel beginnt!");
+        message.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: black;");
 
 
         //zeigen des Trumfs and die Spieler
@@ -88,14 +94,26 @@ public class Game extends Application{
         trumpfButton.setPrefWidth(80);
         trumpfView.setFitWidth(72);
         trumpfView.setPreserveRatio(true);
+        //Design der rechten leiste
         rechteLeiste.setPrefWidth(120);
         rechteLeiste.setAlignment(Pos.CENTER);
         rechteLeiste.getChildren().addAll(trumpfButton);
+        //Design der linken leiste
+        linkeLeiste.setPrefWidth(120);
+        linkeLeiste.setAlignment(Pos.CENTER);
+        //Design der oberen leiste
+        obereLeiste.setMaxWidth(Double.MAX_VALUE);
+        obereLeiste.setPrefHeight(60);
+        obereLeiste.setAlignment(Pos.CENTER);
+        obereLeiste.setSpacing(15);
+        obereLeiste.getChildren().addAll(message);
 
 
         //Karten dem Spieler geben
         playerCardsOnHand = spiel.givePlayersCard();
         ArrayList<Button> buttons = new ArrayList<>();
+        cardNumberEnemy1 = spiel.giveCardsNumber(spiel.giveEnemy(0));
+        cardNumberEnemy2 = spiel.giveCardsNumber(spiel.giveEnemy(1));
         cardNumberEnemy3 = spiel.giveCardsNumber(spiel.giveEnemy(2));
 
 
@@ -117,16 +135,35 @@ public class Game extends Application{
             kartenleiste.getChildren().add(butn);
         }
 
+        //Deklarieren der Variable für den switch-case
+        int fall = 0;
+
         //Buttons zeigen wie viele Karten gegner haben
+        Button gegner1kartenZahl = new Button(String.valueOf(cardNumberEnemy1));
+        linkeLeiste.getChildren().add(gegner1kartenZahl);
+        Button gegner2kartenZahl = new Button(String.valueOf(cardNumberEnemy2));
+        obereLeiste.getChildren().add(gegner2kartenZahl);
         Button gegner3kartenZahl = new Button(String.valueOf(cardNumberEnemy3));
         rechteLeiste.getChildren().add(gegner3kartenZahl);
 
         //Bestimmen wer anfängt
         if(spiel.giveBeginner() == null){
-            //Spieler fängt an weil er am wenigsten IQ besitzt
+            //Spieler fängt an, weil er am wenigsten IQ besitzt
             attacker = spiel.givePlayer();
+            message.setText("Spieler zieht auf Gegner 1");
+            fall = 1;
         }else{
             attacker = spiel.giveBeginner();
+            if(attacker.giveIndex() == 0){
+                message.setText("Gegner 1 zieht auf Gegner 2");
+                fall = 4;
+            }else if(attacker.giveIndex() == 1){
+                message.setText("Gegner 2 zieht auf Gegner 3");
+                fall = 8;
+            }else if(attacker.giveIndex() == 2){
+                message.setText("Gegner 3 zieht auf Spieler");
+                fall = 12;
+            }
         }
 
 
@@ -137,7 +174,6 @@ public class Game extends Application{
          */
 
         //hier spielen die Spieler
-        int fall = 0;
         switch(fall){
             case 1:
                 //der Spieler zieht gegen gegner1

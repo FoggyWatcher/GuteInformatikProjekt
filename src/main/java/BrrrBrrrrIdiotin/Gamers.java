@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public abstract class Gamers {
     public Gamers(){}
     public abstract void addCards(Cardelement[] n);
+    public abstract int giveIndex();
     public abstract void removeCards(Cardelement c);
     public abstract int giveAmOnHand();
     public abstract Cardelement getCard();

@@ -7,6 +7,7 @@ import java.util.Arrays;
 //add instant add cards
 public class Player extends Gamers {
     ArrayList<Cardelement> onHand = new ArrayList<>(6);
+    int index = 600;
 
     /**
      * Adds given cards to the players on hand cards
@@ -22,6 +23,14 @@ public class Player extends Gamers {
      */
     public void removeCards(Cardelement c){
             onHand.removeIf(c::equalss);
+    }
+
+    /**
+     * Retruns the number 600 because it doesn't make any difference
+     */
+    @Override
+    public int giveIndex() {
+        return index;
     }
 
     /**
