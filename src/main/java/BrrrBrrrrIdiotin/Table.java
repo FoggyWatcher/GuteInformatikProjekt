@@ -45,6 +45,10 @@ public class Table{
         return enemies;
     }
 
+    public int giveGamersIndex(Gamers g){
+        return g.giveIndex();
+    }
+
     /**
      * Gives back the Deck as an array list of Cardelements
      * @return Deck as ArrayList<Cardelement>
@@ -63,7 +67,7 @@ public class Table{
 
     /**
      * Gives back the trump and the last card of the deck, one at the bottom
-     * @return Last card as an Cardelement
+     * @return Last card as a Cardelement
      */
     public Cardelement returnLastTrump(){
         return last;

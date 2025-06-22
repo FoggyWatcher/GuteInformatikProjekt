@@ -45,6 +45,13 @@ public class KonYaCon {
     }
 
     /**
+     * Returns the index of the enemy
+     */
+    public int giveEnemyIndex(Gamers enemy){
+        return table.giveGamersIndex(enemy);
+    }
+
+    /**
      * Determines who is the first to attack
      * Done through looking for the smallest trump
      * in gamers' cards
