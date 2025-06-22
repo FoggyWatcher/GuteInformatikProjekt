@@ -47,8 +47,12 @@ public class Diamonds implements Cardelement {
     }
 
     public boolean equalss(Cardelement y){
+        if(y == null){
+            System.out.println("y in cardelement ist null");
+            return false;
+        }
         return y.giveValue() == value && colour.equals(y.giveColour());
-    };
+    }
     public boolean beat() {
         return beaten;
     }

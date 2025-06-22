@@ -63,7 +63,7 @@ public class KonYaCon {
         for(int i = 0; i < enemies.length; i++){
             smallestTrumps[i + 1] = enemies[i].giveSmallestTrump();
         }
-        int smallest = 100;
+        int smallest = 1000;
         for(int i = 0; i < 4; i++){
             if(smallestTrumps[i] < smallest){
                 smallest = smallestTrumps[i];
@@ -91,6 +91,7 @@ public class KonYaCon {
 
     public Cardelement getEnemyMove(int i){
         setPlaid(enemies[i]);
+        played = enemies[i].getCard();
         return enemies[i].getCard();
     }
 

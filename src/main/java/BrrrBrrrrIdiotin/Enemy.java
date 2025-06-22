@@ -1,6 +1,7 @@
 package BrrrBrrrrIdiotin;
 
 import Cards.Cardelement;
+import Cards.Clubs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,7 +81,8 @@ public class Enemy extends Gamers {
      * @return null cs shi useless
      */
     public Cardelement getCard(){
-        return null; //Add connection to buttons
+        //return eonHand.get(0); //Add connection to buttons
+        return new Clubs(1,1, "/BilderProjekt/ClubsAce.png");
     }
 
     /**
