@@ -57,7 +57,7 @@ public class Player extends Gamers {
                 min = trumpValues.get(i);
             }
         }
-        return min;
+            return min;
     }
 
     /**

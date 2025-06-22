@@ -11,7 +11,6 @@ import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class Game extends Application{
@@ -43,11 +42,14 @@ public class Game extends Application{
         BackgroundImage backImg= new BackgroundImage(new Image(getClass().getResourceAsStream("/BilderProjekt/PokerTable.jpg")),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-
+        //"C:\Users\HP\IdeaProjects\GuteInformatikProjekt\target\classes\BilderProjekt\PokerTable.jpg"
         //kartenleistendesign
         kartenleiste.setMaxWidth(Double.MAX_VALUE);
         kartenleiste.setStyle("-fx-background-color: #1d7435; -fx-border-width: 6px; -fx-border-color: #c0e10e");
         kartenleiste.setPrefHeight(120);
+
+        //bums design
+        bums.setAlignment(Pos.CENTER);
 
         //borderpanedesign
         BorderPane.setAlignment(grundspiel, Pos.CENTER);
@@ -79,8 +81,8 @@ public class Game extends Application{
         spiel = new KonYaCon();
         ArrayList<Cardelement> playerCardsOnHand;
         Label message = new Label("Das Spiel beginnt!");
-        message.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: black;");
-
+        message.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: black; -fx-background-color: #1d7435; -fx-border-width: 2px; -fx-border-color: #c0e10e");
+        ArrayList<Button> angriffKartenTisch = new ArrayList<>();
 
         //zeigen des Trumfs and die Spieler
         Cardelement lastCard = spiel.determineTrump();
@@ -122,7 +124,7 @@ public class Game extends Application{
             butn.setOnAction(null);
             butn.setId("butn" +(i + 1));
             //String bildname = playerCardsOnHand.get(i).getImageName();
-            String bildname = "/BilderProjekt/clubsacebetter.png";
+            //String bildname = "/BilderProjekt/clubsacebetter.png";
             Image bild = new Image(getClass().getResourceAsStream(playerCardsOnHand.get(i).getImageName()));
             ImageView bildView = new ImageView(bild);
             bildView.setFitHeight(98);
@@ -163,6 +165,9 @@ public class Game extends Application{
             }else if(attacker.giveIndex() == 2){
                 message.setText("Gegner 3 zieht auf Spieler");
                 fall = 12;
+            }else{
+                message.setText("Spieler zieht auf Gegner 1");
+                fall = 1;
             }
         }
 
@@ -179,22 +184,64 @@ public class Game extends Application{
                 //der Spieler zieht gegen gegner1
                 spiel.setPlaid(attacker);
                 spiel.setDefender(spiel.giveEnemy(0));
+                for(int i = 0; i < buttons.size(); i++){
+                    int finalI = i;
+                    buttons.get(i).setOnAction(e -> {
+                    bums.getChildren().add(buttons.get(finalI));
+                    kartenleiste.getChildren().remove(buttons.get(finalI));
+                    angriffKartenTisch.add(buttons.get(finalI));
+                    });
+                }
+                //if(bums.getChildren().size() != 0){
+                //    if(){
+                //
+                //    }
+                //}
                 //Kartenspielen
             case 2:
                 //der Spieler zieht gegen gegner2
                 spiel.setPlaid(attacker);
                 spiel.setDefender(spiel.giveEnemy(1));
+                spiel.setPlaid(attacker);
+                spiel.setDefender(spiel.giveEnemy(0));
+                for(int i = 0; i < buttons.size(); i++){
+                    int finalI = i;
+                    buttons.get(i).setOnAction(e -> {
+                        bums.getChildren().add(buttons.get(finalI));
+                        kartenleiste.getChildren().remove(buttons.get(finalI));
+                        angriffKartenTisch.add(buttons.get(finalI));
+                    });
+                }
+                //if(bums.getChildren().size() != 0){
+                //    if(){
+                //
+                //    }
+                //}
                 //Kartenspielen
             case 3:
                 //der Spieler zieht gegen gegner3
                 spiel.setPlaid(attacker);
                 spiel.setDefender(spiel.giveEnemy(2));
+                spiel.setPlaid(attacker);
+                spiel.setDefender(spiel.giveEnemy(0));
+                for(int i = 0; i < buttons.size(); i++){
+                    int finalI = i;
+                    buttons.get(i).setOnAction(e -> {
+                        bums.getChildren().add(buttons.get(finalI));
+                        kartenleiste.getChildren().remove(buttons.get(finalI));
+                        angriffKartenTisch.add(buttons.get(finalI));
+                    });
+                }
+                //if(bums.getChildren().size() != 0){
+                //    if(){
+                //
+                //    }
+                //}
                 //Kartenspielen
             case 4:
                 //gegner1 zieht gegen gegner2
                 spiel.setPlaid(attacker);
                 spiel.setDefender(spiel.giveEnemy(1));
-                //Kartenspielen
             case 5:
                 //gegner1 zieht gegen gegner3
                 spiel.setPlaid(attacker);

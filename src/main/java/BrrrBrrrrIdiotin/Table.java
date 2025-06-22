@@ -226,6 +226,7 @@ public class Table{
      * Adds all cards to the deck, the deck is sorted and has no trump
      */
     public void fill(){
+        deck.clear();
         for(int i = 0; i < 9; i++){
             Cardelement d = new Clubs(i, 0, "/BilderProjekt/" + "Clubs" + types[i] + ".png");
             deck.add(i, d);
