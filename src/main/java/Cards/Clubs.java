@@ -27,20 +27,29 @@ public class Clubs implements Cardelement {
         return value;
     }
 
-    public boolean giveTrump(){
-        return trump == 10;
-    }
-
     public void makeTrump(){
         trump = 10;
+        value += 10;
     }
 
+    /**
+     * Returns true if it is trump
+     * @return
+     */
     public boolean isTrump(){
         if(trump == 10){
             return true;
         }else{
             return false;
         }
+    }
+
+    /**
+     * The better isTrump()
+     * @return
+     */
+    public boolean giveTrump(){
+        return trump == 10;
     }
 
     public boolean equalss(Cardelement y){
