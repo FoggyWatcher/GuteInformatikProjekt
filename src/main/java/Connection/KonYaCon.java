@@ -89,10 +89,22 @@ public class KonYaCon {
         return p;
      }
 
-    public Cardelement getEnemyMove(int i){
-        setPlaid(enemies[i]);
-        played = enemies[i].getCard();
-        return enemies[i].getCard();
+    /**
+     * Makes an enemy with given index make a move, in case that it can make a move, sets both played and plaid; utilizes playCard()
+     * Can both attack and defend
+     * If cant defend, returns a card, hearts with value 52
+     * If cant attack, gives a card, diamonds with value 80085
+     * @param i : int, Index of enemy to make move
+     * @return Cardelement: card that is to be placed OR a card with value to display inability to attack or defend
+     */
+    public Cardelement getEnemyMove(int i ){
+        Cardelement c = table.makeEnemyMove(enemies[i]);
+        if(c.giveValue() != 52 && c.giveValue() != 80085){
+            setPlaid(enemies[i]);
+            setPlayed(c);
+            playCard();
+        }
+        return c;
     }
 
     /**
