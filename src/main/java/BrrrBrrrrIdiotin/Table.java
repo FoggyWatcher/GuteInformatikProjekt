@@ -1,10 +1,14 @@
 package BrrrBrrrrIdiotin;
 
 import Cards.*;
+import org.jetbrains.annotations.NotNull;
 
+import javax.smartcardio.Card;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
-import static java.util.Collections.shuffle;
+import static java.util.Collections.*;
 
 public class Table{
     ArrayList<Cardelement> deck;
@@ -86,8 +90,13 @@ public class Table{
      * @param  c Cardelement
      */
     public void addInPlay(Cardelement c){
-        int ch = inplay.length - 1;
-        inplay[ch + 1] = c;
+        int ch = 0;
+        for(int i = 0; i < inplay.length; i++){
+            if(inplay[i] != null) {
+                ch += 1;
+            }
+        }
+        inplay[ch] = c;
     }
 
     /**
@@ -259,6 +268,256 @@ public class Table{
             if(i.giveColour().equals(s)){
                 i.makeTrump();
             }
+        }
+    }
+
+    /**
+     * Returns all values that are currently in Play without repetition
+     * @return int[] with all values that one can dokinut'
+     */
+    public int[] typesInPlay(){
+        int[] a = new int[12];
+        for(int i = 0; i < 12; i++){
+            for(int j = 0; j < i; j++){
+                if(inplay[i].giveValue() != a[j]){
+                    a[i] = inplay[i].giveValue();
+                }
+            }
+        }
+        return a;
+    }
+
+    /**
+     * Looks for all non-null elements in the inPlay array
+     * @return amount of non-null positions in inPlay
+     */
+    public int giveLength(){
+        int ch = 0;
+        for (Cardelement cardelement : inplay) {
+            if (cardelement != null) {
+                ch += 1;
+            }
+        }
+        return ch;
+    }
+
+    /**
+     * Checks if and integer is in an array and returns true or false
+     * @param a integer to find
+     * @param b array to look in
+     * @return true if is in false if not
+     */
+    public boolean isIn(int a, int[] b){
+        for (int j : b) {
+            if (a == j) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Looks at all cards that are in Play and pick out all that are yet to be defeated
+     * @return Arraylist of cards that in play and yet to be defeated
+     */
+    public ArrayList<Cardelement> notBeatenAndInPlay(){
+        ArrayList<Cardelement> all = new ArrayList<Cardelement>(12);
+        int counter = 0;
+        for(Cardelement c : inplay){
+            if(!c.beat()){
+                all.add(counter, c);
+                counter += 1;
+            }
+        }
+        return all;
+    }
+
+    /**
+     * Puts all cards of the defender of same colour into an array
+     * @param colour : Colour of cards
+     * @return Arraylist with all cards of same colour on hand of defender
+     */
+    public ArrayList<Cardelement> giveAllCardOfColour(String colour){
+        ArrayList<Cardelement> tspmo = new ArrayList<>();
+        int counter = 0;
+        for(Cardelement c : defender.giveOnHand()){
+            if(c.giveColour().equals(colour)){
+                tspmo.add(counter, c);
+                counter += 1;
+            }
+        }
+        return tspmo;
+    }
+
+    /**
+     * Makes and Attack, doesn't attack with trump unless there are already 10 cards on the table
+     * OR there are less than 5 cards left in the deck.
+     * Can attack first too, does so with the smallest non-trump on hand.
+     * Attacks with the first non trump of the same value as cards already in play.
+     * If cant attack or too many cards are already present returns Diamond BOOBS
+     * *80085 OOOOOPS Sorry >_< a - a - .... a mmm-m-mistake >~< , hehe silly me
+     * @param gamer one to attack
+     * @return Card that is an attack or display of defeat
+     */
+    public Cardelement makeEnemyAttack(@NotNull Gamers gamer){
+        ArrayList<Cardelement> gamerOnHand = sortInValue(gamer.giveOnHand());
+        int[] a = typesInPlay();
+        if(giveLength() == 0){
+            for(Cardelement c : gamerOnHand){
+                if(!c.isTrump()){
+                    return c;
+                }
+            }
+        }
+        if(giveLength() > 11){
+            return new Diamonds(80085, 0, "Ma balls");
+        }
+        for(int i = 0; i < gamer.giveAmOnHand(); i++){
+            Cardelement c = gamerOnHand.get(i);
+            if(giveLength() > 8 && c.giveTrump() && isIn(c.giveValue() - 10, a)){
+                return c;
+            }
+            else if((!c.isTrump() && isIn(c.giveValue(), a) )|| (deck.size() < 5 && isIn(c.giveValue(), a))){
+                gamer.removeCards(c);
+                return c;
+            }
+        }
+        return new Diamonds(80085, 0, "Ma balls");
+    }
+
+    /**
+     * Sorts and array of cards based on their value
+     * @param a List to be sorted
+     * @return Sorted list
+     */
+    public ArrayList<Cardelement> sortInValue(@NotNull ArrayList<Cardelement> a){
+        a.sort(Comparator.comparingInt(Cardelement::giveValue));
+        return a;
+    }
+
+    /**
+     * Tries to beat a card with a card of same colour
+     * @param a All cards of same colour on hands
+     * @param c Card that is to be beaten
+     * @return Cardelement/null : Card that beats c ot null
+     */
+    public Cardelement returnIfBeat(ArrayList<Cardelement> a, Cardelement c){
+        for (Cardelement cat : a) {
+            if (cat.giveValue() > c.giveValue()) {
+                return cat;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Tries to beat a card with trump that are on hand
+     * @param a, list of trumps on hand
+     * @param c, Card to beat
+     * @return Cardelement/Null : Card that beats c or null
+     */
+    public Cardelement tryTrump(ArrayList<Cardelement> a, Cardelement c){
+        if(returnIfBeat(a, c) != null){
+            return returnIfBeat(a, c);
+        }
+        else{
+            return null;
+        }
+    }
+
+    /**
+     * Tries to beat a card with either cards of same colour or a trump
+     * @param a, All cards that aren't trump and have same colour
+     * @param b All trumps
+     * @param c Card to beat
+     * @return Cardelement : Card that beats card C or a joke card that tells that its GG
+     */
+    public Cardelement returnIfBeatUltimate(ArrayList<Cardelement> a, ArrayList<Cardelement> b, Cardelement c){
+        Cardelement karta = returnIfBeat(a, c);
+        if(karta != null){
+            karta.mBeat(true);
+            c.mBeat(true);
+            return karta;
+        }
+        else{
+            Cardelement kartaLuchshe = tryTrump(b, c);
+            if(kartaLuchshe != null){
+                kartaLuchshe.mBeat(true);
+                c.mBeat(true);
+                return kartaLuchshe;
+            }
+            else{
+                return new Hearts(52, 0, "Ma balls in ya jaws");
+            }
+        }
+    }
+
+    /**
+     * Creates an array "trumps", and fills it with all trump om hand
+     * @param myClubs, Clubs on hand
+     * @param myHearts, Hearts on hand
+     * @param myDiamonds, Diamonds on hand
+     * @param mySpades, Spades on hand
+     * @return trupms, all cards on hand that are trump
+     */
+    public ArrayList<Cardelement> findAllTrump(ArrayList<Cardelement> myClubs, ArrayList<Cardelement> myHearts, ArrayList<Cardelement> myDiamonds, ArrayList<Cardelement> mySpades){
+        ArrayList<Cardelement> trumps = new ArrayList<>();
+        switch (trump){
+            case "Clubs":
+                trumps = myClubs;
+            case "Diamonds":
+                trumps = myDiamonds;
+            case "Hearts":
+                trumps = myHearts;
+            case "Spades":
+                trumps = mySpades;
+        }
+        return trumps;
+    }
+
+    /**
+     * Defends one card, the cards are defended in the Rihenfolge that they were put on table
+     * Allways answers with the smallest possible non trump, if cant uses trump, if stil cant than GG
+     * @param gamer, Gamers, one to defend
+     * @return Cardelement : card that he uses to defend
+     */
+    public Cardelement makeEnemyDefend(Gamers gamer){
+        ArrayList<Cardelement> myClubs = sortInValue(giveAllCardOfColour("Clubs"));
+        ArrayList<Cardelement> myDiamonds = sortInValue(giveAllCardOfColour("Diamonds"));
+        ArrayList<Cardelement> myHearts = sortInValue(giveAllCardOfColour("Hearts"));
+        ArrayList<Cardelement> mySpades = sortInValue(giveAllCardOfColour("Spades"));
+        ArrayList<Cardelement> toBeat = notBeatenAndInPlay();
+        ArrayList<Cardelement> trumps = new ArrayList<>();
+
+        trumps = findAllTrump(myClubs, myHearts, myDiamonds, mySpades);
+
+        for(Cardelement c : toBeat) {
+            if (c.giveColour().equals("Clubs")) {
+                return returnIfBeatUltimate(myClubs, trumps, c);
+            } else if (c.giveColour().equals("Diamonds")) {
+                return returnIfBeatUltimate(myDiamonds, trumps, c);
+            } else if (c.giveColour().equals("Hearts")) {
+                return returnIfBeatUltimate(myHearts, trumps, c);
+            } else if (c.giveColour().equals("Spades")) {
+                return returnIfBeatUltimate(mySpades, trumps, c);
+            }
+        }
+
+        return new Hearts(52, 0, "Ma balls in ya jaws");
+    }
+
+    /**
+     * Makes a specified enemy make a move, returns only ONE card
+     * Both attacks and defends
+     * @param gamers: Gamers, one to make a move
+     * @return Cardelement, card that is to be played or a representative of inability
+     */
+    public Cardelement makeEnemyMove(Gamers gamers){
+        if(defender.giveIndex() == gamers.giveIndex()){
+            return makeEnemyDefend(gamers);
+        }
+        else{
+            return makeEnemyAttack(gamers);
         }
     }
 }
