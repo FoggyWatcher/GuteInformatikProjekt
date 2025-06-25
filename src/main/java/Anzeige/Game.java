@@ -21,10 +21,13 @@ public class Game extends Application{
     private VBox rechteLeiste;
     private VBox linkeLeiste;
     private HBox obereLeiste;
-    private int cardNumberEnemy3;
-    private int cardNumberEnemy2;
-    private int cardNumberEnemy1;
+    private int cardNumberEnemy;
     private Gamers attacker;
+    private ArrayList<Cardelement> playerCardsOnHand;
+    Label message = new Label("Das Spiel beginnt!");
+    private  boolean gespielt = false;
+    private ArrayList<Cardelement> attackerCardsonTable= new ArrayList<>();
+    private ArrayList<Cardelement> defenderCardsonTable= new ArrayList<>();
 
 
     @Override
@@ -79,10 +82,7 @@ public class Game extends Application{
 
         //Wichtige Objekte
         spiel = new KonYaCon();
-        ArrayList<Cardelement> playerCardsOnHand;
-        Label message = new Label("Das Spiel beginnt!");
         message.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: black; -fx-background-color: #1d7435; -fx-border-width: 2px; -fx-border-color: #c0e10e");
-        ArrayList<Button> angriffKartenTisch = new ArrayList<>();
 
         //zeigen des Trumfs and die Spieler
         Cardelement lastCard = spiel.determineTrump();
@@ -110,13 +110,15 @@ public class Game extends Application{
         obereLeiste.setSpacing(15);
         obereLeiste.getChildren().addAll(message);
 
+        playTurns();
+    }
 
+    public void playTurns(){
         //Karten dem Spieler geben
         playerCardsOnHand = spiel.givePlayersCard();
         ArrayList<Button> buttons = new ArrayList<>();
-        cardNumberEnemy1 = spiel.giveCardsNumber(spiel.giveEnemy(0));
-        cardNumberEnemy2 = spiel.giveCardsNumber(spiel.giveEnemy(1));
-        cardNumberEnemy3 = spiel.giveCardsNumber(spiel.giveEnemy(2));
+        cardNumberEnemy = spiel.giveCardsNumber(spiel.giveEnemy());
+        ArrayList<Button> angriffKartenTisch = new ArrayList<>();
 
 
         for(int i = 0; i < playerCardsOnHand.size(); i++){
@@ -141,12 +143,8 @@ public class Game extends Application{
         int fall = 0;
 
         //Buttons zeigen wie viele Karten gegner haben
-        Button gegner1kartenZahl = new Button(String.valueOf(cardNumberEnemy1));
-        linkeLeiste.getChildren().add(gegner1kartenZahl);
-        Button gegner2kartenZahl = new Button(String.valueOf(cardNumberEnemy2));
-        obereLeiste.getChildren().add(gegner2kartenZahl);
-        Button gegner3kartenZahl = new Button(String.valueOf(cardNumberEnemy3));
-        rechteLeiste.getChildren().add(gegner3kartenZahl);
+        Button gegnerKartenZahl = new Button(String.valueOf(cardNumberEnemy));
+        obereLeiste.getChildren().add(gegnerKartenZahl);
 
         //Bestimmen wer anfängt
         if(spiel.giveBeginner() == null){
@@ -157,14 +155,8 @@ public class Game extends Application{
         }else{
             attacker = spiel.giveBeginner();
             if(attacker.giveIndex() == 0){
-                message.setText("Gegner 1 zieht auf Gegner 2");
-                fall = 4;
-            }else if(attacker.giveIndex() == 1){
-                message.setText("Gegner 2 zieht auf Gegner 3");
-                fall = 8;
-            }else if(attacker.giveIndex() == 2){
-                message.setText("Gegner 3 zieht auf Spieler");
-                fall = 12;
+                message.setText("Gegner 1 zieht auf Spieler");
+                fall = 2;
             }else{
                 message.setText("Spieler zieht auf Gegner 1");
                 fall = 1;
@@ -178,114 +170,52 @@ public class Game extends Application{
          * Jetzt fängt der teil an, wo dein gehirn vor Dummheit des Codes schmelzen wird
          */
 
-        //hier spielen die Spieler
-        switch(fall){
-            case 1:
-                //der Spieler zieht gegen gegner1
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.giveEnemy(0));
-                for(int i = 0; i < buttons.size(); i++){
-                    int finalI = i;
-                    buttons.get(i).setOnAction(e -> {
-                    bums.getChildren().add(buttons.get(finalI));
-                    kartenleiste.getChildren().remove(buttons.get(finalI));
-                    angriffKartenTisch.add(buttons.get(finalI));
-                    });
-                }
-                //if(bums.getChildren().size() != 0){
-                //    if(){
-                //
-                //    }
-                //}
-                //Kartenspielen
-            case 2:
-                //der Spieler zieht gegen gegner2
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.giveEnemy(1));
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.giveEnemy(0));
-                for(int i = 0; i < buttons.size(); i++){
-                    int finalI = i;
-                    buttons.get(i).setOnAction(e -> {
-                        bums.getChildren().add(buttons.get(finalI));
-                        kartenleiste.getChildren().remove(buttons.get(finalI));
-                        angriffKartenTisch.add(buttons.get(finalI));
-                    });
-                }
-                //if(bums.getChildren().size() != 0){
-                //    if(){
-                //
-                //    }
-                //}
-                //Kartenspielen
-            case 3:
-                //der Spieler zieht gegen gegner3
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.giveEnemy(2));
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.giveEnemy(0));
-                for(int i = 0; i < buttons.size(); i++){
-                    int finalI = i;
-                    buttons.get(i).setOnAction(e -> {
-                        bums.getChildren().add(buttons.get(finalI));
-                        kartenleiste.getChildren().remove(buttons.get(finalI));
-                        angriffKartenTisch.add(buttons.get(finalI));
-                    });
-                }
-                //if(bums.getChildren().size() != 0){
-                //    if(){
-                //
-                //    }
-                //}
-                //Kartenspielen
-            case 4:
-                //gegner1 zieht gegen gegner2
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.giveEnemy(1));
-            case 5:
-                //gegner1 zieht gegen gegner3
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.giveEnemy(2));
-                //Kartenspielen
-            case 6:
-                //gegner1 zieht gegen Spieler
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.givePlayer());
-                //Kartenspielen
-            case 7:
-                //gegner2 zieht gegen gegner1
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.giveEnemy(0));
-                //Kartenspielen
-            case 8:
-                //gegner2 zieht gegen gegner3
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.giveEnemy(2));
-                //Kartenspielen
-            case 9:
-                //gegner zieht gegen Spieler
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.givePlayer());
-                //Kartenspielen
-            case 10:
-                //gegner3 zieht gegen gegner1
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.giveEnemy(0));
-                //Kartenspielen
-            case 11:
-                //gegner3 zieht gegen gegner2
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.giveEnemy(1));
-                //Kartenspielen
-            case 12:
-                //gegner3 zieht gegen Spieler
-                spiel.setPlaid(attacker);
-                spiel.setDefender(spiel.givePlayer());
-                //Kartenspielen
+        //gefährliches while()
+        while(spiel.givePlayersCard().size() != 0 && spiel.giveCardsNumber(spiel.giveEnemy()) != 0){
+            //hier spielen die Spieler
+            switch(fall){
+                case 1:
+                    //der Spieler zieht gegen gegner1
+                    spiel.setPlaid(attacker);
+                    spiel.setDefender(spiel.giveEnemy());
+                    for(int i = 0; i < buttons.size(); i++){
+                        int finalI = i;
+                        buttons.get(i).setOnAction(e -> {
+                            bums.getChildren().add(buttons.get(finalI));
+                            kartenleiste.getChildren().remove(buttons.get(finalI));
+                            angriffKartenTisch.add(buttons.get(finalI));
+                            attackerCardsonTable.add(playerCardsOnHand.get(finalI));
+                            if(checkInPlay(attackerCardsonTable.get(finalI).giveValue())){
+                                buttons.get(finalI).setOnAction(null);
+                            }
+                            gespielt = true;
+                        });
+                    }
+
+                case 2:
+                    //der gegner zieht gegen den Spieler
+                    spiel.setPlaid(attacker);
+                    spiel.setDefender(spiel.givePlayer());
+                    break;
+            }
         }
     }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public boolean checkInPlay(int cardValue){
+        boolean check = false;
+        for(int i = 0; i < attackerCardsonTable.size(); i++){
+            if(attackerCardsonTable.get(i).giveValue() == cardValue){
+                check = true;
+            }else if(defenderCardsonTable.get(i).giveValue() == cardValue){
+                check = true;
+            }else{
+                check = false;
+            }
+        }
+        return check;
     }
 }
