@@ -1,4 +1,5 @@
 package BrrrBrrrrIdiotin;
+import BrrrBrrrrIdiotin.Table.*;
 
 import Cards.Cardelement;
 
@@ -8,7 +9,17 @@ import java.util.Arrays;
 public class Player extends Gamers {
     ArrayList<Cardelement> onHand = new ArrayList<>(6);
     int index = 600;
+    Cardelement smallestTrump;
 
+    public void setSmallestTrump(Cardelement c){
+        smallestTrump = c;
+    }
+
+
+
+    public Cardelement giveSmallestTrumppppp(){
+        return smallestTrump;
+    }
     /**
      * Adds given cards to the players on hand cards
      * @param n Cardelement[], cards to be added
@@ -42,22 +53,26 @@ public class Player extends Gamers {
     }
 
     public int giveSmallestTrump(){
-        ArrayList <Integer> trumpValues = new ArrayList<>();
-        for(int i = 0; i < onHand.size(); i++){
-            if(onHand.get(i).isTrump()){
-                trumpValues.add(onHand.get(i).giveValue());
+        int[] trumpValues = new int[]{1000, 1000, 1000, 1000, 1000, 1000};
+        for (int i = 0; i < 6; i++) {
+            if (onHand.get(i).isTrump()) {
+                trumpValues[i] = onHand.get(i).giveValue();
             }
         }
-        if(trumpValues.isEmpty()){
-            return 1000;
-        }
-        int min = trumpValues.get(0);
-        for (int i = 1; i < trumpValues.size(); i++) {
-            if (trumpValues.get(i) < min) {
-                min = trumpValues.get(i);
+
+        //if(trumpValues.isEmpty()){
+        //     return 1000;
+        //}
+
+        int min = trumpValues[0];
+
+        for (int i = 1; i < 6; i++) {
+            if (trumpValues[i] < min) {
+                min = trumpValues[i];
             }
         }
-            return min;
+
+        return min;
     }
 
     /**

@@ -11,6 +11,5 @@ module org.example.durakspiel {
     requires annotations;
 
     opens org.example.durakspiel to javafx.fxml;
-    exports org.example.durakspiel;
     exports Anzeige;
 }

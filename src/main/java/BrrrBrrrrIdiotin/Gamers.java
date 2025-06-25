@@ -14,4 +14,6 @@ public abstract class Gamers {
     public abstract Cardelement giveCard();
     public abstract ArrayList<Cardelement> giveOnHand();
     public abstract int giveSmallestTrump();
+    public abstract void setSmallestTrump(Cardelement c);
+    public abstract Cardelement giveSmallestTrumppppp();
 }

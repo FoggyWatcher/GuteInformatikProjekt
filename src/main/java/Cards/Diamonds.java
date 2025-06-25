@@ -36,6 +36,7 @@ public class Diamonds implements Cardelement {
 
     public void makeTrump(){
         trump = 10;
+        value += 10;
     }
 
     public boolean isTrump(){
