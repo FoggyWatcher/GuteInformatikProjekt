@@ -12,14 +12,14 @@ import java.util.ArrayList;
 public class KonYaCon {
     Table table = new Table();
     Gamers p;
-    Gamers[] enemies;
+    Gamers enemy;
     Cardelement played;
     Gamers plaid;
     ArrayList<Cardelement> deck;
 
     public KonYaCon(){
         p = table.givePlayer();
-        enemies = table.giveEnemies();
+        enemy = table.giveEnemy();
         deck = table.giveDeck();
         table.getFromDeck();
     }
@@ -58,30 +58,27 @@ public class KonYaCon {
      * @return
      */
     public Gamers giveBeginner(){
-        int[] smallestTrumps = new int[4];
+        int[] smallestTrumps = new int[2];
         smallestTrumps[0] = p.giveSmallestTrump();
-        for(int i = 0; i < enemies.length; i++){
-            smallestTrumps[i + 1] = enemies[i].giveSmallestTrump();
-        }
+        smallestTrumps[1] = enemy.giveSmallestTrump();
+
         int smallest = 1000;
-        for(int i = 0; i < 4; i++){
+
+        for(int i = 0; i < 2; i++){
             if(smallestTrumps[i] < smallest){
                 smallest = smallestTrumps[i];
             }
         }
+
         for (int i = 0; i < smallestTrumps.length; i++) {
             if (smallestTrumps[i] == smallest) {
                 if(i == 0){
                     return p;
                 }else if(i == 1) {
-                    return enemies[0];
-                }else if(i == 2){
-                    return enemies[1];
-                }else{
-                    return enemies[2];
-                }
+                    return enemy;}
             }
         }
+
         return null; //hoffentlich ist die Wahrscheinlichkeit dafür kleiner als die zahl auf meinem Bankkonto
     }
 
@@ -98,9 +95,9 @@ public class KonYaCon {
      * @return Cardelement: card that is to be placed OR a card with value to display inability to attack or defend
      */
     public Cardelement getEnemyMove(int i ){
-        Cardelement c = table.makeEnemyMove(enemies[i]);
+        Cardelement c = table.makeEnemyMove(enemy);
         if(c.giveValue() != 52 && c.giveValue() != 80085){
-            setPlaid(enemies[i]);
+            setPlaid(enemy);
             setPlayed(c);
             playCard();
         }
@@ -125,7 +122,7 @@ public class KonYaCon {
     }
 
     public Gamers giveEnemy(int i){
-        return enemies[i];
+        return enemy;
     }
 
     public int giveCardsNumber(Gamers gamer){

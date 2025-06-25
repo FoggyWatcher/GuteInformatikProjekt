@@ -14,6 +14,7 @@ public class Table{
     ArrayList<Cardelement> deck;
     Gamers p = new Player();
     Gamers[] enemies;
+    Gamers enemy;
     Cardelement last;
     String trump;
     String[] types;
@@ -27,7 +28,8 @@ public class Table{
         p = new Player();
         types = new String[] {"Ace", "Eight", "Jester", "King", "Nine", "Queen", "Seven", "Six", "Ten"};
         deck = new ArrayList<Cardelement>(36);
-        enemies = new Enemy[]{new Enemy(0), new Enemy(1), new Enemy(2)};
+        enemies = new Enemy[]{new Enemy(0)};
+        enemy = enemies[0];
         selectTrump();
         last = deck.get(deck.size()-1);
         trump = last.giveColour();
@@ -45,8 +47,8 @@ public class Table{
      * Gives back the enemies as an array containing all enemies
      * @return Enemies of type Gamers[]
      */
-    public Gamers[] giveEnemies(){
-        return enemies;
+    public Gamers giveEnemy(){
+        return enemy;
     }
 
     public int giveGamersIndex(Gamers g){
@@ -337,10 +339,10 @@ public class Table{
      * @param colour : Colour of cards
      * @return Arraylist with all cards of same colour on hand of defender
      */
-    public ArrayList<Cardelement> giveAllCardOfColour(String colour){
+    public ArrayList<Cardelement> giveAllCardOfColour(String colour, Gamers gamers){
         ArrayList<Cardelement> tspmo = new ArrayList<>();
         int counter = 0;
-        for(Cardelement c : defender.giveOnHand()){
+        for(Cardelement c : gamers.giveOnHand()){
             if(c.giveColour().equals(colour)){
                 tspmo.add(counter, c);
                 counter += 1;
@@ -482,10 +484,10 @@ public class Table{
      * @return Cardelement : card that he uses to defend
      */
     public Cardelement makeEnemyDefend(Gamers gamer){
-        ArrayList<Cardelement> myClubs = sortInValue(giveAllCardOfColour("Clubs"));
-        ArrayList<Cardelement> myDiamonds = sortInValue(giveAllCardOfColour("Diamonds"));
-        ArrayList<Cardelement> myHearts = sortInValue(giveAllCardOfColour("Hearts"));
-        ArrayList<Cardelement> mySpades = sortInValue(giveAllCardOfColour("Spades"));
+        ArrayList<Cardelement> myClubs = sortInValue(giveAllCardOfColour("Clubs", gamer));
+        ArrayList<Cardelement> myDiamonds = sortInValue(giveAllCardOfColour("Diamonds", gamer));
+        ArrayList<Cardelement> myHearts = sortInValue(giveAllCardOfColour("Hearts", gamer));
+        ArrayList<Cardelement> mySpades = sortInValue(giveAllCardOfColour("Spades", gamer));
         ArrayList<Cardelement> toBeat = notBeatenAndInPlay();
         ArrayList<Cardelement> trumps = new ArrayList<>();
 
@@ -519,5 +521,17 @@ public class Table{
         else{
             return makeEnemyAttack(gamers);
         }
+    }
+
+    public int returnNull(){
+        return 0;
+    }public int returnEinz(){
+        return 1;
+    }public int returnZwei(){
+        return 2;
+    }public int returnThree(){
+        return 3;
+    }public int returnFour(){
+        return 4;
     }
 }
