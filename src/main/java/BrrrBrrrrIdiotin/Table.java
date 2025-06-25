@@ -107,7 +107,7 @@ public class Table{
      * Player first, then enemies 0,1,2
      */
     public void getFromDeck(){
-        Gamers[] g = new Gamers[]{p, enemies[0], enemies[1], enemies[2]};
+        Gamers[] g = new Gamers[]{p, enemy};
         for(Gamers s : g){
             if(s.giveAmOnHand() < 6){
                 giveCards(s, (6 - s.giveAmOnHand()));
