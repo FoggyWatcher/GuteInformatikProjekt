@@ -113,7 +113,7 @@ public class KonYaCon {
      * @return
      */
     public Cardelement determineTrump(){
-        table.selectTrump();
+        //table.selectTrump();
         return table.returnLastTrump();
     }
 

@@ -1,7 +1,7 @@
 package Cards;
 
 public class Clubs implements Cardelement {
-    private static String colour;
+    private String colour;
     private int value;
     private int trump;
     private String location;
@@ -30,6 +30,15 @@ public class Clubs implements Cardelement {
     public void makeTrump(){
         trump = 10;
         value += 10;
+    }
+
+    /**
+     * returns the card's value without the trump
+     * @return
+     */
+    public int giveRealValue(){
+        int realValue = value - trump;
+        return realValue;
     }
 
     /**

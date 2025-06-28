@@ -14,4 +14,5 @@ public interface Cardelement {
     //public Cardelement giveWith();
     //public void setWith(Cardelement c);
     public boolean isTrump();
+    public int giveRealValue();
 }

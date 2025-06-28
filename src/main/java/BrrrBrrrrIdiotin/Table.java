@@ -18,8 +18,8 @@ public class Table{
     Cardelement last;
     String trump;
     String[] types;
-    static Cardelement[] inplay;
-    static Gamers defender;
+    Cardelement[] inplay;
+    Gamers defender;
 
     /**
      * Constructor of Table, creates a player, enemies, deck filled and shuffled with trump, trump
@@ -33,6 +33,7 @@ public class Table{
         selectTrump();
         last = deck.get(deck.size()-1);
         trump = last.giveColour();
+        inplay = new Cardelement[12];
     }
 
     /**
@@ -138,6 +139,9 @@ public class Table{
             take();
         }
         inplay = null;
+        for(int i = 0; i < inplay.length; i++){
+            inplay[i] = null;
+        }
         getFromDeck();
     }
 
@@ -159,15 +163,15 @@ public class Table{
     /**
      * Gives the defender all cards, that are currently in PLay
      */
-    public static void take(){
-        Table.defender.addCards(inplay);
+    public void take(){
+        this.defender.addCards(this.inplay);
     }
 
     /**
      *Deletes all cards currently in active in the round
      */
     public void beaten(){
-        removeCard(Table.inplay);
+        removeCard(this.inplay);
     }
 
     /**

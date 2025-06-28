@@ -1,7 +1,7 @@
 package Cards;
 
 public class Diamonds implements Cardelement {
-    private static String colour;
+    private String colour;
     private int value;
     private int trump;
     private String location;
@@ -24,6 +24,15 @@ public class Diamonds implements Cardelement {
 
     public int giveValue(){
         return value;
+    }
+
+    /**
+     * returns the card's value without the trump
+     * @return
+     */
+    public int giveRealValue(){
+        int realValue = value - trump;
+        return realValue;
     }
 
     public boolean giveTrump(){
