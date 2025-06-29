@@ -18,8 +18,8 @@ public class Table{
     Cardelement last;
     String trump;
     String[] types;
-    Cardelement[] inplay;
-    Gamers defender;
+    static Cardelement[] inplay;
+    static Gamers defender;
 
     /**
      * Constructor of Table, creates a player, enemies, deck filled and shuffled with trump, trump
@@ -33,7 +33,6 @@ public class Table{
         selectTrump();
         last = deck.get(deck.size()-1);
         trump = last.giveColour();
-        inplay = new Cardelement[12];
     }
 
     /**
@@ -139,9 +138,6 @@ public class Table{
             take();
         }
         inplay = null;
-        for(int i = 0; i < inplay.length; i++){
-            inplay[i] = null;
-        }
         getFromDeck();
     }
 
@@ -163,15 +159,15 @@ public class Table{
     /**
      * Gives the defender all cards, that are currently in PLay
      */
-    public void take(){
-        this.defender.addCards(this.inplay);
+    public static void take(){
+        Table.defender.addCards(inplay);
     }
 
     /**
      *Deletes all cards currently in active in the round
      */
     public void beaten(){
-        removeCard(this.inplay);
+        removeCard(Table.inplay);
     }
 
     /**
@@ -283,14 +279,24 @@ public class Table{
      */
     public int[] typesInPlay(){
         int[] a = new int[12];
+        int[] b;
+        int counter = 0;
         for(int i = 0; i < 12; i++){
             for(int j = 0; j < i; j++){
                 if(inplay[i].giveValue() != a[j]){
                     a[i] = inplay[i].giveValue();
+                    counter += 1;
                 }
             }
         }
-        return a;
+        b = new int[counter];
+        for(int i = 0; i < b.length; i++){
+            if(a[i] != 0){
+                b[counter] = a[i];
+                counter -= 1;
+            }
+        }
+        return b;
     }
 
     /**
@@ -467,7 +473,7 @@ public class Table{
      * @return trupms, all cards on hand that are trump
      */
     public ArrayList<Cardelement> findAllTrump(ArrayList<Cardelement> myClubs, ArrayList<Cardelement> myHearts, ArrayList<Cardelement> myDiamonds, ArrayList<Cardelement> mySpades){
-        ArrayList<Cardelement> trumps = new ArrayList<>();
+        ArrayList<Cardelement> trumps = new ArrayList<Cardelement>();
         switch (trump){
             case "Clubs":
                 trumps = myClubs;
