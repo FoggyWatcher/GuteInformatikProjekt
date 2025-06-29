@@ -11,8 +11,7 @@ public interface Cardelement {
     public boolean beat();
     public void mBeat(boolean b);
     public String getImageName();
-    //public Cardelement giveWith();
+    //https://tylerpalko.github.io/Is-My-Computer-ON/
     //public void setWith(Cardelement c);
     public boolean isTrump();
-    public int giveRealValue();
 }

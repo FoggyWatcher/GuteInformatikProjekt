@@ -36,10 +36,6 @@ public class KonYaCon {
         plaid = gamers;
     }
 
-    public Table giveTable(){
-        return table;
-    }
-
     /**
      * Return the cards Player p has on his hand
      * @return
@@ -113,7 +109,7 @@ public class KonYaCon {
      * @return
      */
     public Cardelement determineTrump(){
-        //table.selectTrump();
+        table.selectTrump();
         return table.returnLastTrump();
     }
 
@@ -125,7 +121,7 @@ public class KonYaCon {
         table.setDefender(defen);
     }
 
-    public Gamers giveEnemy(){
+    public Gamers giveEnemy(int i){
         return enemy;
     }
 
