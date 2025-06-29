@@ -14,4 +14,6 @@ public interface Cardelement {
     //https://tylerpalko.github.io/Is-My-Computer-ON/
     //public void setWith(Cardelement c);
     public boolean isTrump();
+
+    public int giveRealValue();
 }
