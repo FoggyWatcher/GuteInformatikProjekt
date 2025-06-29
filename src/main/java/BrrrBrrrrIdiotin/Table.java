@@ -26,7 +26,7 @@ public class Table{
      */
     public Table(){
         p = new Player();
-        types = new String[] {"Ace", "Eight", "Jester", "King", "Nine", "Queen", "Seven", "Six", "Ten"};
+        types = new String[] {"Six", "Seven", "Eight", "Nine", "Ten", "Jester", "Queen", "King", "Ace"};
         deck = new ArrayList<Cardelement>(36);
         enemies = new Enemy[]{new Enemy(0)};
         enemy = enemies[0];

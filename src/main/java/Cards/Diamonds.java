@@ -18,6 +18,10 @@ public class Diamonds implements Cardelement {
         beaten = false;
     }
 
+    public int giveRealValue() {
+        return value - trump;
+    }
+
     public String giveColour(){
         return colour;
     }
