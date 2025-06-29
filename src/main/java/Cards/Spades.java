@@ -18,6 +18,10 @@ public class Spades implements Cardelement {
         beaten = false;
     }
 
+    public int giveRealValue() {
+        return value - trump;
+    }
+
     public String giveColour(){
         return colour;
     }
@@ -36,6 +40,7 @@ public class Spades implements Cardelement {
 
     public void makeTrump(){
         trump = 10;
+        value += 10;
     }
 
     public boolean isTrump(){

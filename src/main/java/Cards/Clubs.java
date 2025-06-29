@@ -7,9 +7,16 @@ public class Clubs implements Cardelement {
     private String location;
     private boolean beaten;
 
+    public int giveRealValue() {
+        return value - trump;
+    }
+
     /**
      * Konstruktor von cards.clubs
      */
+
+
+
     public Clubs(int val, int tr, String location){
         colour = "clubs";
         value = val + tr;
