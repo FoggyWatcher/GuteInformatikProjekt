@@ -1,12 +1,11 @@
 package Cards;
 
 public class Clubs implements Cardelement {
-    private String colour;
+    private static String colour;
     private int value;
     private int trump;
     private String location;
     private boolean beaten;
-    public Cardelement with;
 
     /**
      * Konstruktor von cards.clubs
@@ -30,15 +29,6 @@ public class Clubs implements Cardelement {
     public void makeTrump(){
         trump = 10;
         value += 10;
-    }
-
-    /**
-     * returns the card's value without the trump
-     * @return
-     */
-    public int giveRealValue(){
-        int realValue = value - trump;
-        return realValue;
     }
 
     /**
@@ -75,10 +65,6 @@ public class Clubs implements Cardelement {
 
     public String getImageName(){
         return location;
-    }
-
-    public Cardelement giveWith(){
-        return with;
     }
 
     public void setWith(){
