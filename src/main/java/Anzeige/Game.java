@@ -32,6 +32,11 @@ public class Game extends Application {
     private ArrayList<Cardelement> defenderCardsonTable = new ArrayList<>();
     private EndWon endWon;
     private EndLost endLost;
+    ArrayList<Button> buttons = new ArrayList<>();
+    ArrayList<Button> angriffKartenTisch = new ArrayList<>();
+    private Button gegnerKartenZahl;
+    private Button takeButton;
+    AtomicInteger fall;
 
     @Override
     public void start(Stage primStage) {
@@ -114,16 +119,13 @@ public class Game extends Application {
         obereLeiste.setSpacing(15);
         obereLeiste.getChildren().addAll(message);
 
-        playTurns();
+        fillPlayerCardsOnHand();
     }
 
-    public void playTurns() {
+    public void fillPlayerCardsOnHand(){
         //Karten dem Spieler geben
         playerCardsOnHand = spiel.givePlayersCard();
-        ArrayList<Button> buttons = new ArrayList<>();
         cardNumberEnemy = spiel.giveCardsNumber(spiel.giveEnemy(1));
-        ArrayList<Button> angriffKartenTisch = new ArrayList<>();
-
 
         for (int i = 0; i < playerCardsOnHand.size(); i++) {
             Button butn = new Button();
@@ -142,13 +144,17 @@ public class Game extends Application {
             buttons.add(butn);
             kartenleiste.getChildren().add(butn);
         }
+        play();
+        playTurn(fall);
+    }
 
+    public void play() {
 
         //Deklarieren der Variable für den switch-case
-        AtomicInteger fall = new AtomicInteger(1);
+        fall = new AtomicInteger(1);
 
         //Buttons zeigen wie viele Karten gegner haben
-        Button gegnerKartenZahl = new Button(String.valueOf(cardNumberEnemy));
+        gegnerKartenZahl = new Button(String.valueOf(cardNumberEnemy));
         obereLeiste.getChildren().add(gegnerKartenZahl);
 
         //Bestimmen wer anfängt
@@ -173,7 +179,7 @@ public class Game extends Application {
          * Dieser erlaubt es dem Spieler, die karten auf dem Tisch zu nehmen
          * Die karten werden vom Tisch entfernt und zur Hand des Spielers hinzugefügt
          */
-        Button takeButton = new Button("TAKE");
+        takeButton = new Button("TAKE");
         takeButton.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: black; -fx-background-color: #1d7435; -fx-border-width: 2px; -fx-border-color: #c0e10e");
         takeButton.setOnAction(e -> {
             /*
@@ -205,14 +211,16 @@ public class Game extends Application {
             }
         });
         linkeLeiste.getChildren().add(endTurnButton);
+    }
 
+    public void playTurn(AtomicInteger fallNummer){
         /**
-         * Du dachtest das ist alles?
-         * ~boss-music starts playing~
-         * Jetzt fängt der teil an, wo dein gehirn vor Dummheit des Codes schmelzen wird
+         * hier ziehen die Spieler bzw. gegner
+         * von fallNummer hängt ab, wer spielen wird
          */
 
-        //gefährliches while()
+        fall = fallNummer;
+
         switch (fall.get()) {
             case 1:
                 //der Spieler zieht gegen gegner1
@@ -228,17 +236,40 @@ public class Game extends Application {
                             kartenleiste.getChildren().remove(buttons.get(finalI));
                             attackerCardsonTable.add(playedCard);
                             playerCardsOnHand.remove(playedCard);
+
+                            //der gegner spielt seine karten
+                            Cardelement defenseCard = spiel.getEnemyMove(1);
+                            defenderCardsonTable.add(1, defenseCard);
+                            Button enemyCardButton = new Button();
+                            Image bild = new Image(getClass().getResourceAsStream(defenseCard.getImageName()));
+                            ImageView bildView = new ImageView(bild);
+                            bildView.setFitHeight(98);
+                            bildView.setFitWidth(70);
+                            bildView.setPreserveRatio(true);
+                            enemyCardButton.setGraphic(bildView);
+
                         }else if(checkInPlay(cardValue)){
                             bums.getChildren().add(buttons.get(finalI));
                             kartenleiste.getChildren().remove(buttons.get(finalI));
                             angriffKartenTisch.add(buttons.get(finalI));
                             attackerCardsonTable.add(playedCard);
                             playerCardsOnHand.remove(playedCard);
+
+                            //der gegner spielt seine karten
+                            Cardelement defenseCard = spiel.getEnemyMove(1);
+                            Button enemyCardButton = new Button();
+                            Image bild = new Image(getClass().getResourceAsStream(defenseCard.getImageName()));
+                            ImageView bildView = new ImageView(bild);
+                            bildView.setFitHeight(98);
+                            bildView.setFitWidth(70);
+                            bildView.setPreserveRatio(true);
+                            enemyCardButton.setGraphic(bildView);
+                            enemyCardButton.setOnAction(null);
+                            defenderCardsonTable.add(1, defenseCard);
+                            bums.getChildren().add(enemyCardButton);
                         }else{
-                            System.out.println("Andere karte, bitte!");
+                            System.out.println("Andere Karte, bitte!");
                         }
-
-
                     });
                 }
 
@@ -248,14 +279,25 @@ public class Game extends Application {
                 //der gegner zieht gegen den Spieler
                 spiel.setPlaid(attacker);
                 spiel.setDefender(spiel.givePlayer());
-                break;
+                Cardelement attackCard = spiel.getEnemyMove(1);
+                attackerCardsonTable.add(attackCard);
+                Button enemyCardButton = new Button();
+                Image bild = new Image(getClass().getResourceAsStream(attackCard.getImageName()));
+                ImageView bildView = new ImageView(bild);
+                bildView.setFitHeight(98);
+                bildView.setFitWidth(70);
+                bildView.setPreserveRatio(true);
+                enemyCardButton.setGraphic(bildView);
+                enemyCardButton.setOnAction(null);
+                bums.getChildren().add(enemyCardButton);
 
 
             default:
                 //Endfall, nachdem das Spiel zu ende ist
-                endTheGame();
+                if(playerCardsOnHand.size() == 0){
+                    endTheGame();
+                }
         }
-
     }
 
     private void endTheGame() {

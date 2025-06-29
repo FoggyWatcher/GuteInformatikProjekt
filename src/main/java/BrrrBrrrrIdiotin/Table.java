@@ -18,7 +18,7 @@ public class Table{
     Cardelement last;
     String trump;
     String[] types;
-    static Cardelement[] inplay;
+    Cardelement[] inplay;
     static Gamers defender;
 
     /**
@@ -33,6 +33,7 @@ public class Table{
         selectTrump();
         last = deck.get(deck.size()-1);
         trump = last.giveColour();
+        inplay = new Cardelement[12];
     }
 
     /**
@@ -137,7 +138,7 @@ public class Table{
         else{
             take();
         }
-        inplay = null;
+        inplay = new Cardelement[12];
         getFromDeck();
     }
 
@@ -159,15 +160,15 @@ public class Table{
     /**
      * Gives the defender all cards, that are currently in PLay
      */
-    public static void take(){
-        Table.defender.addCards(inplay);
+    public void take(){
+        defender.addCards(inplay);
     }
 
     /**
      *Deletes all cards currently in active in the round
      */
     public void beaten(){
-        removeCard(Table.inplay);
+        removeCard(this.inplay);
     }
 
     /**
@@ -282,6 +283,7 @@ public class Table{
         int[] b;
         int counter = 0;
         for(int i = 0; i < 12; i++){
+            if(inplay[i] == null) continue;
             for(int j = 0; j < i; j++){
                 if(inplay[i].giveValue() != a[j]){
                     a[i] = inplay[i].giveValue();
