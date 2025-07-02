@@ -1,8 +1,8 @@
 Userstory vom Durakspiel von Illya Kyslyy und Konstantin Lebedev
 
-Das Informatikprojekt unserer Gruppe ist der Versuch, ein Spiel zu programmieren, in dem der User gegen einen Bot das berühmte Kartenspiel Durak spielt.
-Das Projekt ist in der Programmiersprache Java mit der Nutzung von IntelliJ geschrieben. Es beinhaltet mehrere Ordner mit verschiedenen
-Klassen, welche für einen reibungslosen Verlauf des Spiels zuständig sein sollten.
+Das Informatikprojekt unserer Gruppe ist der Versuch, ein Spiel zu programmieren, in dem der User gegen einen Bot das berühmte
+Kartenspiel Durak spielt. Das Projekt ist in der Programmiersprache Java mit der Nutzung von IntelliJ geschrieben. 
+Es beinhaltet mehrere Ordner mit verschiedenen Klassen, welche für einen reibungslosen Verlauf des Spiels zuständig sein sollten.
 
 Nach dem Starten des Projekts entweder durch run main() in der Launcher Klasse (Ordner Appstarter) oder per Doppelklick auf die .jar-Datei, die
 sich im Ordner out befindet, öffnet sich das Fenster des Startscreens. Diese beinhaltet die Buttons „play“ und „exit“.
