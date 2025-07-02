@@ -9,17 +9,7 @@ import java.util.Arrays;
 public class Player extends Gamers {
     ArrayList<Cardelement> onHand = new ArrayList<>(6);
     int index = 600;
-    Cardelement smallestTrump;
 
-    public void setSmallestTrump(Cardelement c){
-        smallestTrump = c;
-    }
-
-
-
-    public Cardelement giveSmallestTrumppppp(){
-        return smallestTrump;
-    }
     /**
      * Adds given cards to the players on hand cards
      * @param n Cardelement[], cards to be added
@@ -52,6 +42,10 @@ public class Player extends Gamers {
         return onHand;
     }
 
+    /**
+     * Returns the smallest trump on hand, or a 1000 if there are no trump. Works only at the start, when the amount of cards is only 6
+     * @return int : value of the smallest trump or 1000 in case there are none
+     */
     public int giveSmallestTrump(){
         int[] trumpValues = new int[]{1000, 1000, 1000, 1000, 1000, 1000};
         for (int i = 0; i < 6; i++) {
