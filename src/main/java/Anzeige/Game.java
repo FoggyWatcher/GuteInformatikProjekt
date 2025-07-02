@@ -326,6 +326,12 @@ public class Game extends Application {
         launch(args);
     }
 
+    /**
+     Hier wird geprüft, ob die Karte bereits auf das Spielfeld gelegt wurde
+     falls ja, wird true returnt
+     falls nein, wird false returnt
+     */
+
     public boolean checkInPlay(int cardValue) {
         boolean check = false;
         for (int i = 0; i < attackerCardsonTable.size(); i++) {
