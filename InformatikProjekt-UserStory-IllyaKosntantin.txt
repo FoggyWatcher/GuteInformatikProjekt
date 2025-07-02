@@ -1,0 +1,22 @@
+Userstory vom Durakspiel von Illya Kyslyy und Konstantin Lebedev
+
+Das Informatikprojekt unserer Gruppe ist der Versuch, ein Spiel zu programmieren, in dem der User gegen einen Bot das berühmte Kartenspiel Durak spielt.
+Das Projekt ist in der Programmiersprache Java mit der Nutzung von IntelliJ geschrieben. Es beinhaltet mehrere Ordner mit verschiedenen
+Klassen, welche für einen reibungslosen Verlauf des Spiels zuständig sein sollten.
+
+Nach dem Starten des Projekts entweder durch run main() in der Launcher Klasse (Ordner Appstarter) oder per Doppelklick auf die .jar-Datei, die
+sich im Ordner out befindet, öffnet sich das Fenster des Startscreens. Diese beinhaltet die Buttons „play“ und „exit“.
+„Exit“ schließt das Programm, während „play“ zum Fenster Cardchoice führt.
+
+Cardchoice sollte es dem User erlauben, zwischen verschiedenen Kartenarten zu wählen. Da bisher keine andere Karten Art
+importiert wurde, führt der rechte Button zu einem anderen Fenster, welches den User über diesen Sachverhalt informiert und die
+Möglichkeit bietet, zum Fenster Cardchoice zurückzukehren. Der linke Button hingegen führt zum Game-Fenster, wo das
+eigentliche Spiel passieren sollte.
+
+Im Game-Fenster passiert das eigentliche Spiel. Im unteren Teil werden die Karten des Spielers angezeigt,
+welche er auf seiner Hand hat. Auf der rechten Seite liegt die Karte, die den trumpf anzeigt. Auf der linken Seite
+sind zwei weitere Buttons zu erkennen, einer funktioniert nur im Fall wenn der User sich gerade verteidigt.
+Dieser Button „take“ nimmt alle Karten vom Tisch und fügt sie der Hand des Spielers zu. Der Button „end turn“ funktioniert
+nur, wenn der Spieler derjenige ist, der angreift. In diesem Fall, gibt der Spieler seinem Gegner bekannt,
+dass er keine weiteren Karten legen will oder kann. Im oberen Teil wird mit einer Nummer die Zahl der Karten
+angezeigt, die der Gegenspieler auf der Hand hat. Das Label daneben, informiert den Spieler darüber, wer auf wen in diesem Zug zieht.
