@@ -17,12 +17,20 @@ public class KonYaCon {
     Gamers plaid;
     ArrayList<Cardelement> deck;
 
+    /**
+     * Konstruktor
+     */
     public KonYaCon(){
         p = table.givePlayer();
         enemy = table.giveEnemy();
         deck = table.giveDeck();
         table.getFromDeck();
     }
+
+    /**
+     * Sets the played card as such
+     * @param cardelement : Played card
+     */
 
     public void setPlayed(Cardelement cardelement){
         played = cardelement;
@@ -82,6 +90,11 @@ public class KonYaCon {
         return null; //hoffentlich ist die Wahrscheinlichkeit dafür kleiner als die zahl auf meinem Bankkonto
     }
 
+    /**
+     * Gives the Player
+     * @return Player
+     */
+
      public Gamers givePlayer(){
         return p;
      }
@@ -113,18 +126,36 @@ public class KonYaCon {
         return table.returnLastTrump();
     }
 
+    /**
+     * Tells how many cards are left
+     * @return int: Cards left
+     */
     public int cardsLeft(){
         return table.cardsLeft();
     }
 
+    /**
+     * Sets defender as such
+     * @param defen Gamers : defender
+     */
     public void setDefender(Gamers defen){
         table.setDefender(defen);
     }
 
+    /**
+     * Returns Enemy
+     * @param i : So we dont have to change ALL the other classes, remnant of multiple enemies
+     * @return Gamers : enemy
+     */
     public Gamers giveEnemy(int i){
         return enemy;
     }
 
+    /**
+     * Tells how many cards a player has
+     * @param gamer : Player whose hand is checked
+     * @return int : ammount of cards on hand
+     */
     public int giveCardsNumber(Gamers gamer){
         return gamer.giveAmOnHand();
     }
@@ -134,6 +165,9 @@ public class KonYaCon {
         table.addInPlay(played);
     }
 
+    /**
+     * Called at the end of the turn. Determines what has to be done, either deletes the cards if beaten, or gives to the defender
+     */
     public void endTurn(){
         table.endTurn();
         if(table.giveDefender() == table.givePlayer()){
@@ -144,12 +178,25 @@ public class KonYaCon {
         }
     }
 
+    /**
+     * to be ignored
+     */
     //Gamers[] order = [player, enemy[1], enemy[2], enemy[3], player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]player, enemy[1], enemy[2], enemy[3]]
 
+    /**
+     * Gives the cards further, will be added in future versions
+     * @param gamers Gamers : Next defender
+     * @param cardelement Cardelement : Card that was used to give forward
+     */
     public void giveFurther(Gamers gamers, Cardelement cardelement){
         table.giveFurther(gamers, cardelement);
     }
 
+    /**
+     * Checks if a card can be beaten by a different one, if no, an exception is thrown
+     * @param bottom Cardelement : Card that is to be beaten
+     * @param top : Cardelement : Card that is trying to beat
+     */
     public void tryToBeat(Cardelement bottom, Cardelement top){
         try {
             table.checkIfBeat(bottom, top);
